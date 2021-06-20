@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorRowBackground"
+    android:padding="@dimen/row_padding">
+
+    <!-- TeamName1-->
+    <TextView
+        android:id="@+id/team1Name"
+        android:layout_width="@dimen/teamName_lenth"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/team_font_size"
+        android:gravity="start" />
+
+    <!-- GoalsTeam1-->
+    <TextView
+        android:id="@+id/team1Goals"
+        android:layout_width="@dimen/teamGoals_lenth"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/team1Name"
+        android:layout_toEndOf="@id/team1Name"
+        android:textAlignment="center"
+        android:textSize="@dimen/goal_font_size"
+        android:layout_toRightOf="@id/team1Name"
+        android:gravity="center_horizontal" />
+
+    <!-- Trennung Team1 vs Team2-->
+    <TextView
+        android:id="@+id/teamSeperator"
+        android:layout_width="@dimen/teamGoals_lenth"
+        android:textAlignment="center"
+        android:textSize="@dimen/goal_font_size"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="@string/teams_Seperator"/>
+
+    <!-- GoalsTeam2-->
+    <TextView
+        android:id="@+id/team2Goals"
+        android:layout_width="@dimen/teamGoals_lenth"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/teamSeperator"
+        android:layout_toEndOf="@id/teamSeperator"
+        android:textAlignment="center"
+        android:textSize="@dimen/goal_font_size"
+        android:layout_toRightOf="@id/teamSeperator"
+        android:gravity="center_horizontal" />
+
+    <!-- TeamName2-->
+    <TextView
+        android:id="@+id/team2Name"
+        android:layout_width="@dimen/teamName_lenth"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/team2Goals"
+        android:layout_toEndOf="@id/team2Goals"
+        android:textAlignment="textEnd"
+        android:textSize="@dimen/team_font_size"
+        android:layout_toRightOf="@id/team2Goals"
+        android:gravity="end" />
+
+</RelativeLayout>

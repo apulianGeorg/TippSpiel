@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TippSpiel</string>
+    <string name="SpieleTippen">Spiele Tippen</string>
+    <string name="Highscore">Highscore</string>
+    <string name="SpieleAnzeigen">Spiele Anzeigen</string>
+    <string name="teams_Seperator">:</string>
+</resources>
