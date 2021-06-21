@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_margin">20dp</dimen>
+    <dimen name="team_margin">6dp</dimen>
     <dimen name="default_font_size">18sp</dimen>
 
-    <dimen name="row_padding">15dp</dimen>
+    <dimen name="row_padding">8dp</dimen>
     <dimen name="row_elements_margin">15dp</dimen>
     <dimen name="teamFlag_size">30dp</dimen>
-    <dimen name="teamName_lenth">130dp</dimen>
-    <dimen name="team_font_size">20sp</dimen>
-    <dimen name="goal_font_size">25sp</dimen>
-    <dimen name="teamGoals_lenth">20dp</dimen>
-    <dimen name="spielergebnisRand">10dp</dimen>
-</resources>
+    <dimen name="teamName_length">110dp</dimen>
+    <dimen name="team_font_size">12sp</dimen>
+    <dimen name="goal_font_size">20sp</dimen>
+    <dimen name="teamGoals_lenth">60dp</dimen>
+ </resources>
