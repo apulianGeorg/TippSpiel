@@ -1,6 +1,6 @@
-package com.example.tippspiel.backend;
+package com.example.tippspiel.backend.Spiel;
 
-class Goalgetter {
+public class Goalgetter {
     private String name;
     private int minute;
     private boolean isPenalty;

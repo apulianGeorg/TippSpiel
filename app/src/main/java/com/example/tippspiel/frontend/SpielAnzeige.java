@@ -6,11 +6,11 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tippspiel.R;
-import com.example.tippspiel.backend.Spiel;
+import com.example.tippspiel.backend.Spiel.Spiel;
+import com.example.tippspiel.backend.SpielFactory;
 import com.example.tippspiel.backend.XmlParser;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class SpielAnzeige extends AppCompatActivity {
     @Override
@@ -24,12 +24,7 @@ public class SpielAnzeige extends AppCompatActivity {
     private void bindAdapterToListView() {
         ListView listView = (ListView)findViewById(R.id.listview_activity_main);
 
-        ArrayList<Spiel> spieleListe = null;
-        try {
-            spieleListe = new XmlParser().execute().get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
 
         RowAdapter adapter = new RowAdapter(this, spieleListe);
         listView.setAdapter(adapter);

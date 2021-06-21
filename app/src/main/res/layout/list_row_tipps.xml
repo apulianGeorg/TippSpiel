@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorRowBackground"
+    android:padding="@dimen/row_padding">
+
+    <ImageView
+        android:id="@+id/team1Flag"
+        android:layout_width="@dimen/teamFlag_size"
+        android:layout_height="@dimen/teamFlag_size"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/abc_vector_test" />
+
+    <!-- TeamName1-->
+    <TextView
+        android:id="@+id/team1Name"
+        android:layout_toRightOf="@id/team1Flag"
+        android:layout_marginLeft="@dimen/team_margin"
+        android:layout_width="@dimen/teamName_length"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/team_font_size"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="start" />
+
+    <!-- Ergebnis-->
+    <EditText
+        android:id="@+id/ergebnis"
+        android:layout_width="@dimen/teamGoals_lenth"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:hint="@string/SpielTipp"
+        android:textSize="@dimen/goal_font_size"
+        android:layout_centerInParent="true"/>
+
+
+    <!-- TeamName2-->
+    <TextView
+        android:id="@+id/team2Name"
+        android:layout_width="@dimen/teamName_length"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:layout_toLeftOf="@id/team2Flag"
+        android:layout_marginRight="@dimen/team_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/team_font_size" />
+
+    <ImageView
+        android:id="@+id/team2Flag"
+        android:layout_width="@dimen/teamFlag_size"
+        android:layout_height="@dimen/teamFlag_size"
+        android:src="@drawable/abc_vector_test"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

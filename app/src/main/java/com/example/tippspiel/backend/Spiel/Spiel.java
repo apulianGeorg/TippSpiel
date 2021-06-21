@@ -1,8 +1,7 @@
-package com.example.tippspiel.backend;
+package com.example.tippspiel.backend.Spiel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Spiel {
@@ -74,5 +73,13 @@ public class Spiel {
             e.printStackTrace();
         }
         this.gameTime = gameTime;
+    }
+
+    public String getResult() {
+        if (matchIsFinished){
+            return team1.getGoalsTeam() + " : " + team2.getGoalsTeam();
+        } else {
+            return "  :  ";
+        }
     }
 }

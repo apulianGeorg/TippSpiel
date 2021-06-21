@@ -1,4 +1,4 @@
-package com.example.tippspiel.backend;
+package com.example.tippspiel.backend.Tipp;
 
 public class Spieler {
     private String name;

@@ -1,15 +1,17 @@
-package com.example.tippspiel.backend;
+package com.example.tippspiel.backend.Spiel;
+
+import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
     private String teamName;
-    private String teamIcon;
+    private Drawable teamIcon;
     private int goalsTeam;
     private List<Goalgetter> goalgetters = new ArrayList<>();
 
-    public Team (String teamName, String teamIcon){
+    public Team (String teamName, Drawable teamIcon){
         setTeamName(teamName);
         setTeamIcon(teamIcon);
     }
@@ -30,11 +32,11 @@ public class Team {
         this.teamName = teamName;
     }
 
-    public String getTeamIcon() {
+    public Drawable getTeamIcon() {
         return teamIcon;
     }
 
-    public void setTeamIcon(String teamIcon) {
+    public void setTeamIcon(Drawable teamIcon) {
         this.teamIcon = teamIcon;
     }
 
