@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".frontend.Highscore"></activity>
         <activity android:name=".frontend.SpielAnzeige"></activity>
-        <activity android:name="frontend.SpielTipp"></activity>
+        <activity android:name=".frontend.SpielTipp"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

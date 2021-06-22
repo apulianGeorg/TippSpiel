@@ -4,5 +4,7 @@
     <string name="Highscore">Highscore</string>
     <string name="SpieleAnzeigen">Spiele Anzeigen</string>
     <string name="teams_Seperator">:</string>
-    <string name="SpielTipp">Spieltipp</string>
+    <string name="SpielTipp">\ ??:??</string>
+    <string name="save">Save</string>
+    <string name="get">get</string>
 </resources>

@@ -26,17 +26,16 @@
         android:gravity="start" />
 
     <!-- Ergebnis-->
+    <!--Todo: evtl 2 Nummerfelder-->
+    <!--Todo: Anzeige und Tiüppanzeige im xml zusammenführen-->
     <EditText
-        android:id="@+id/ergebnis"
+        android:id="@+id/ergebnisTipp"
         android:layout_width="@dimen/teamGoals_lenth"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:hint="@string/SpielTipp"
         android:textSize="@dimen/goal_font_size"
         android:layout_centerInParent="true"/>
-
 
     <!-- TeamName2-->
     <TextView

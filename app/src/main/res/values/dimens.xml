@@ -11,4 +11,5 @@
     <dimen name="team_font_size">12sp</dimen>
     <dimen name="goal_font_size">20sp</dimen>
     <dimen name="teamGoals_lenth">60dp</dimen>
- </resources>
+    <dimen name="Spielename_length">140dp</dimen>
+</resources>
