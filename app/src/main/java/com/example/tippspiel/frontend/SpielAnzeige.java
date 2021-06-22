@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tippspiel.R;
 import com.example.tippspiel.backend.Spiel.Spiel;
 import com.example.tippspiel.backend.SpielFactory;
-import com.example.tippspiel.backend.XmlParser;
 
 import java.util.ArrayList;
 

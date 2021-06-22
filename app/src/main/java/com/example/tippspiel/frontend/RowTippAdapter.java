@@ -10,12 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.tippspiel.backend.Spiel.Spiel;
-
+import com.example.tippspiel.backend.Tipp.TippManager;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import static com.example.tippspiel.R.id;
 import static com.example.tippspiel.R.layout;
 
@@ -23,16 +20,12 @@ public class RowTippAdapter extends ArrayAdapter<Spiel> {
 
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
-    private final HashMap<Integer, String> tipps;
-
-    public HashMap<Integer, String> getTipps() {
-        return tipps;
-    }
 
     public class ViewHolder
     {
         TextView team1Name;
         TextView team2Name;
+        EditText tippSpieler;
         EditText ergebnisTipp;
         ImageView team1Flag;
         ImageView team2Flag;
@@ -44,7 +37,6 @@ public class RowTippAdapter extends ArrayAdapter<Spiel> {
         super(context, layout.list_row_tipps, id.team1Name,spiele);
         this._context = context;
         this.spiele = spiele;
-        this.tipps = new HashMap<>();
     }
 
     @Override
@@ -74,12 +66,13 @@ public class RowTippAdapter extends ArrayAdapter<Spiel> {
         holder.team1Flag = (ImageView) convertView.findViewById(id.team1Flag);
         holder.team1Name = (TextView) convertView.findViewById(id.team1Name);
         holder.ergebnisTipp= (EditText) convertView.findViewById(id.ergebnisTipp);
+        holder.tippSpieler= (EditText) convertView.findViewById(id.tippSpieler);
         holder.team2Name = (TextView) convertView.findViewById(id.team2Name);
         holder.team2Flag = (ImageView) convertView.findViewById(id.team2Flag);
         return holder;
     }
 
-    private void setTextWatcher(final int position, ViewHolder holder) {
+    private void setTextWatcher(final int position, final ViewHolder holder) {
         // Remove any existing TextWatcher that will be keyed to the wrong ListItem
         if (holder.textWatcher != null)
             holder.ergebnisTipp.removeTextChangedListener(holder.textWatcher);
@@ -92,8 +85,8 @@ public class RowTippAdapter extends ArrayAdapter<Spiel> {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int spielId = spiele.get(position).getMatchid();
-                tipps.put(spielId, s.toString());
+                int matchId = spiele.get(position).getMatchid();
+                TippManager.neuerTipp(holder.tippSpieler, matchId, s.toString());
             }
 
             @Override
@@ -104,15 +97,14 @@ public class RowTippAdapter extends ArrayAdapter<Spiel> {
     }
 
     private void setHolderValues(int position, ViewHolder holder) {
-        int spielId = spiele.get(position).getMatchid();
-        if (tipps.containsKey(spielId)){
-            holder.ergebnisTipp.setText(tipps.get(spielId));
-        } else {
-            holder.ergebnisTipp.setText("");
-        }
+        int matchId = spiele.get(position).getMatchid();
+        holder.ergebnisTipp.setText(
+                TippManager.tipperListGet(
+                        holder.tippSpieler,
+                        matchId));
         holder.team1Flag.setImageDrawable(spiele.get(position).getTeam1().getTeamIcon());
         holder.team1Name.setText(spiele.get(position).getTeam1().getTeamName());
-        holder.team2Name.setText(""+spiele.get(position).getTeam2().getTeamName());
+        holder.team2Name.setText(spiele.get(position).getTeam2().getTeamName());
         holder.team2Flag.setImageDrawable(spiele.get(position).getTeam2().getTeamIcon());
     }
 }

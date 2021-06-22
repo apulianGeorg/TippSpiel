@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void spieleTippen() {
-        Intent intent = new Intent(this, SpielTipp.class);
+        Intent intent = new Intent(this, SpielTippAnzeige.class);
         startActivity(intent);
     }
 
     private void zeigeHighscoreAn() {
-        Intent intent = new Intent(this, Highscore.class);
+        Intent intent = new Intent(this, HighscoreAnzeige.class);
         startActivity(intent);
     }
 

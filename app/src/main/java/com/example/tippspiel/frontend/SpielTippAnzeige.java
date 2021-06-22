@@ -1,7 +1,6 @@
 package com.example.tippspiel.frontend;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,14 +8,20 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.R;
 import com.example.tippspiel.backend.Spiel.Spiel;
 import com.example.tippspiel.backend.SpielFactory;
+import com.example.tippspiel.backend.Tipp.TippManager;
+import com.example.tippspiel.backend.Tipp.TippMap;
+import com.example.tippspiel.backend.Tipp.Tipper;
+import com.example.tippspiel.basics.MyReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class SpielTipp extends AppCompatActivity {
+public class SpielTippAnzeige extends AppCompatActivity {
     private Button button;
     private RowTippAdapter adapter;
 
@@ -45,14 +50,15 @@ public class SpielTipp extends AppCompatActivity {
     }
 
     private void saveTipps() {
-        EditText tippSpielerET =  (EditText) findViewById(R.id.tippSpieler);
-        String tippSpieler = tippSpielerET.getText().toString();
-
-        HashMap<Integer, String> spielTipps = this.adapter.getTipps();
+        //TODO:SAVE
+        //TippManager.tipperList;
 
     }
 
     private void getTipps() {
+        List<Tipper> tipperList=null;
+        String tippFileStr = MyReader.loadJSONFromAsset(getBaseContext(), InternalConstants.TippFile);
+        TippManager.setTipperList(TippMap.mapFileToTipperList(tippFileStr));
     }
 
     private void bindAdapterToListView() {

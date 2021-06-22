@@ -1,6 +1,6 @@
 package com.example.tippspiel;
 
-public class Constants {
+public class UrlConstants {
     public final static String UrlPrefix ="https://www.openligadb.de/api/getmatchdata/";
     public final static String LigaShortcutEm2020="uefa-em-2020";
     public final static String MatchId ="MatchID";
@@ -31,5 +31,4 @@ public class Constants {
     //Team1/2
     public final static String TeamIconUrl ="TeamIconUrl";
     public final static String TeamName ="TeamName";
-
 }

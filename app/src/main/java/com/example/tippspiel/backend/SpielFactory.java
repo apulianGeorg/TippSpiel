@@ -1,6 +1,7 @@
 package com.example.tippspiel.backend;
 
 import com.example.tippspiel.backend.Spiel.Spiel;
+import com.example.tippspiel.basics.XmlReader;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class SpielFactory {
 
     private static void callXmlParser(){
         try {
-            spieleListe = new XmlParser().execute().get();
+            spieleListe = new XmlReader().execute().get();
         } catch (Exception e) {
             e.printStackTrace();
         }
