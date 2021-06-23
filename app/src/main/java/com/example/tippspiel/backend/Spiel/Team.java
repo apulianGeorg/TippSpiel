@@ -9,7 +9,6 @@ public class Team {
     private String teamName;
     private Drawable teamIcon;
     private int goalsTeam;
-    private List<Goalgetter> goalgetters = new ArrayList<>();
 
     public Team (String teamName, Drawable teamIcon){
         setTeamName(teamName);
@@ -19,7 +18,6 @@ public class Team {
         if (goalgetters==null){
             goalsTeam=0;
         } else {
-            this.goalgetters=goalgetters;
             goalsTeam=goalgetters.size();
         }
     }
@@ -28,7 +26,7 @@ public class Team {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
+    private void setTeamName(String teamName) {
         this.teamName = teamName;
     }
 
@@ -36,7 +34,7 @@ public class Team {
         return teamIcon;
     }
 
-    public void setTeamIcon(Drawable teamIcon) {
+    private void setTeamIcon(Drawable teamIcon) {
         this.teamIcon = teamIcon;
     }
 

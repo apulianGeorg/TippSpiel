@@ -12,7 +12,6 @@ import android.widget.Button;
 import com.example.tippspiel.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.SpieleAnzeigenButton);
+        Button button = (Button) findViewById(R.id.SpieleAnzeigenButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

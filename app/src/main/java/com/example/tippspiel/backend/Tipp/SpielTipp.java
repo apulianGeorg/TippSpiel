@@ -1,6 +1,6 @@
 package com.example.tippspiel.backend.Tipp;
 
-public class SpielTipp {
+class SpielTipp {
     private String ergebnis;
     private boolean isEvaluated;
     private int spielId;

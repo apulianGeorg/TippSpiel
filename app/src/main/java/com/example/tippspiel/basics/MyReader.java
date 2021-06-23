@@ -1,8 +1,11 @@
 package com.example.tippspiel.basics;
 
-import android.content.Context;
+import com.example.tippspiel.InternalConstants;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,10 +14,10 @@ import java.net.URL;
 
 public class MyReader {
 
-    public static String ReadHtmlPageAsString(String urlStr){
+    static String ReadHtmlPageAsString(){
         StringBuilder retStr = new StringBuilder();
         try {
-            URL url = new URL(urlStr);
+            URL url = new URL("https://www.openligadb.de/api/getmatchdata/uefa-em-2020");
             InputStream input = url.openStream();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -30,21 +33,21 @@ public class MyReader {
         return retStr.toString();
     }
 
-    public static String loadJSONFromAsset(Context context, String fileName) {
-        String json = null;
+    public static  String readFile(){
+        File root = android.os.Environment.getExternalStorageDirectory();
+        File dir = new File (root.getAbsolutePath() + "/download");
+        File file = new File(dir, InternalConstants.TippFile);
         try {
-            InputStream is = context.getAssets().open(fileName);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+            FileReader fileReader= new FileReader(file);
+            char[] chars = new char[(int) file.length()];
+            final int anzChars = fileReader.read(chars);
+            return new String(chars);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return json;
+        return InternalConstants.EmptyStr;
     }
 
     /*

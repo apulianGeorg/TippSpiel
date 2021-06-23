@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class SpielFactory {
 
-    static ArrayList<Spiel> spieleListe;
+    private static ArrayList<Spiel> spieleListe;
 
     public static ArrayList<Spiel> getSpiele() {
         if (spieleListe==null){

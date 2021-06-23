@@ -25,7 +25,7 @@ public class Spiel {
         return matchid;
     }
 
-    public void setMatchid(int matchid) {
+    private void setMatchid(int matchid) {
         this.matchid = matchid;
     }
 
@@ -33,7 +33,7 @@ public class Spiel {
         return team1;
     }
 
-    public void setTeam1(Team team1) {
+    private void setTeam1(Team team1) {
         this.team1 = team1;
     }
 
@@ -41,7 +41,7 @@ public class Spiel {
         return team2;
     }
 
-    public void setTeam2(Team team2) {
+    private void setTeam2(Team team2) {
         this.team2 = team2;
     }
 
@@ -49,7 +49,7 @@ public class Spiel {
         return location;
     }
 
-    public void setLocation(String location) {
+    private void setLocation(String location) {
         this.location = location;
     }
 
@@ -57,7 +57,7 @@ public class Spiel {
         return matchIsFinished;
     }
 
-    public void setMatchIsFinished(boolean matchIsFinished) {
+    private void setMatchIsFinished(boolean matchIsFinished) {
         this.matchIsFinished = matchIsFinished;
     }
 
@@ -65,7 +65,7 @@ public class Spiel {
         return gameTime;
     }
 
-    public void setGameTime(String gameTime) {
+    private void setGameTime(String gameTime) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
             Date date  = simpleDateFormat.parse(gameTime);

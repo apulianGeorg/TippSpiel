@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 
 import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.UrlConstants;
-import com.example.tippspiel.UrlConstants;
 import com.example.tippspiel.backend.Spiel.Goalgetter;
 import com.example.tippspiel.backend.Spiel.Spiel;
 import com.example.tippspiel.backend.Spiel.Team;
@@ -38,7 +37,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
 
     private void fuelleSpieleListe(){
         String jsonStr = MyReader.
-                ReadHtmlPageAsString(UrlConstants.UrlPrefix + UrlConstants.LigaShortcutEm2020);
+                ReadHtmlPageAsString();
         try {
             JSONArray jsonArr = new JSONArray(jsonStr);
             for (int arrIdx = 0; arrIdx < jsonArr.length(); arrIdx ++){

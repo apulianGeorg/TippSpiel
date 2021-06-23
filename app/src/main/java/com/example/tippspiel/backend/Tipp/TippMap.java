@@ -12,9 +12,9 @@ import java.util.List;
 public class TippMap {
     public static List<Tipper> mapFileToTipperList(String fileInput){
         List<Tipper> tipperList = new ArrayList<>();
-        JSONArray jsonTippArr = null;
         try {
-            jsonTippArr = new JSONArray(fileInput);
+            JSONObject jsonFileObj = new JSONObject(fileInput);
+            JSONArray jsonTippArr = new JSONArray(jsonFileObj.getString(InternalConstants.Tipper));
             for (int arrIdx = 0; arrIdx < jsonTippArr.length(); arrIdx ++) {
                 tipperList.add(createTipper(jsonTippArr.getJSONObject(arrIdx)));
             }

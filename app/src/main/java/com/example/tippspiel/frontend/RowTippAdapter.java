@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import static com.example.tippspiel.R.id;
 import static com.example.tippspiel.R.layout;
 
-public class RowTippAdapter extends ArrayAdapter<Spiel> {
+class RowTippAdapter extends ArrayAdapter<Spiel> {
 
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
 
-    public class ViewHolder
+    class ViewHolder
     {
         TextView team1Name;
         TextView team2Name;

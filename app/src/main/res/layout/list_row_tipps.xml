@@ -31,6 +31,7 @@
     <EditText
         android:id="@+id/ergebnisTipp"
         android:layout_width="@dimen/teamGoals_lenth"
+        android:inputType="datetime"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:hint="@string/SpielTipp"

@@ -25,15 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SpielTippAnzeige extends AppCompatActivity {
-    private Button button;
-    private RowTippAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tippanzeige);
 
-        button = (Button) findViewById(R.id.getButton);
+        Button button = (Button) findViewById(R.id.getButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,16 +55,13 @@ public class SpielTippAnzeige extends AppCompatActivity {
         EditText tippSpielerET =  (EditText) findViewById(R.id.tippSpieler);
         String tippSpieler = tippSpielerET.getText().toString();
         TippManager.setTipperName(tippSpieler);
-        MyJsonWriter.write(TippManager.tipperList);
-        //getTipps();
+        MyJsonWriter.write();
+
     }
 
     private void getTipps() {
         List<Tipper> tipperList=null;
-        File root = android.os.Environment.getExternalStorageDirectory();
-        String filePathName= root.getAbsolutePath() + "/download" +InternalConstants.TippFile;
-        String tippFileStr = MyReader.loadJSONFromAsset(getBaseContext(), filePathName);
-        TippManager.setTipperList(TippMap.mapFileToTipperList(tippFileStr));
+        TippManager.setTipperList(TippMap.mapFileToTipperList(MyReader.readFile()));
     }
 
     private void bindAdapterToListView() {
@@ -74,7 +69,7 @@ public class SpielTippAnzeige extends AppCompatActivity {
 
         ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
 
-        adapter = new RowTippAdapter(this, spieleListe);
+        RowTippAdapter adapter = new RowTippAdapter(this, spieleListe);
         listView.setAdapter(adapter);
     }
 }
