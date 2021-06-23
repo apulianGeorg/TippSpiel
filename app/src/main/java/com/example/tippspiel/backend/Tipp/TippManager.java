@@ -2,6 +2,8 @@ package com.example.tippspiel.backend.Tipp;
 
 import android.widget.EditText;
 
+import com.example.tippspiel.InternalConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +53,15 @@ public class TippManager {
     public static void setTipperList(List<Tipper> mapFileToTipperList) {
         tipperList=mapFileToTipperList;
         tipperId=tipperList.size();
+    }
+
+    public static void setTipperName(String tippSpieler) {
+        for (Tipper tipper : tipperList) {
+            if (tipper.getName().equals(InternalConstants.EmptyStr)){
+                tipper.setName(tippSpieler);
+                return;
+            }
+
+        }
     }
 }

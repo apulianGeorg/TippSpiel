@@ -1,5 +1,6 @@
 package com.example.tippspiel.frontend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +16,10 @@ import com.example.tippspiel.backend.SpielFactory;
 import com.example.tippspiel.backend.Tipp.TippManager;
 import com.example.tippspiel.backend.Tipp.TippMap;
 import com.example.tippspiel.backend.Tipp.Tipper;
+import com.example.tippspiel.basics.MyJsonWriter;
 import com.example.tippspiel.basics.MyReader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +46,7 @@ public class SpielTippAnzeige extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveTipps();
+                finish();
             }
         });
 
@@ -50,14 +54,18 @@ public class SpielTippAnzeige extends AppCompatActivity {
     }
 
     private void saveTipps() {
-        //TODO:SAVE
-        //TippManager.tipperList;
-
+        EditText tippSpielerET =  (EditText) findViewById(R.id.tippSpieler);
+        String tippSpieler = tippSpielerET.getText().toString();
+        TippManager.setTipperName(tippSpieler);
+        MyJsonWriter.write(TippManager.tipperList);
+        //getTipps();
     }
 
     private void getTipps() {
         List<Tipper> tipperList=null;
-        String tippFileStr = MyReader.loadJSONFromAsset(getBaseContext(), InternalConstants.TippFile);
+        File root = android.os.Environment.getExternalStorageDirectory();
+        String filePathName= root.getAbsolutePath() + "/download" +InternalConstants.TippFile;
+        String tippFileStr = MyReader.loadJSONFromAsset(getBaseContext(), filePathName);
         TippManager.setTipperList(TippMap.mapFileToTipperList(tippFileStr));
     }
 
