@@ -8,6 +8,7 @@ public class InternalConstants {
     public final static String TipperPunkte="TipperPunkte";
     public final static String TipperSpiele="TipperSpiele";
     public final static String TipperSpielId="TipperSpielId";
+    public final static String TipperSpielPunkte="TipperSpielPunkte";
     public final static String TipperSpielErgebnis="TipperSpielErgebnis";
     public final static String TipperSpielIsEvaluated="TipperSpielIsEvaluated";
 

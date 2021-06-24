@@ -1,6 +1,8 @@
 package com.example.tippspiel.frontend;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +16,6 @@ import com.example.tippspiel.backend.SpielFactory;
 import com.example.tippspiel.backend.Tipp.TippManager;
 import com.example.tippspiel.backend.Tipp.TippMap;
 import com.example.tippspiel.backend.Tipp.Tipper;
-import com.example.tippspiel.basics.MyJsonWriter;
 import com.example.tippspiel.basics.MyReader;
 
 import java.util.ArrayList;
@@ -51,7 +52,8 @@ public class SpielTippAnzeige extends AppCompatActivity {
         EditText tippSpielerET = findViewById(R.id.tippSpieler);
         String tippSpieler = tippSpielerET.getText().toString();
         TippManager.setTipperName(tippSpieler);
-        TippManager.save();
+        String outStr = TippManager.save();
+        Log.println(Log.INFO,"TippFileStr", outStr);
     }
 
     private void getTipps() {

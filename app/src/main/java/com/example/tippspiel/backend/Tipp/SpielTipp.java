@@ -6,6 +6,7 @@ class SpielTipp {
     private int spielId;
     private Integer toreTeam1;
     private Integer toreTeam2;
+    private int spielTippPunkte;
 
     public SpielTipp(int spielId, String ergebnis){
         setErgebnis(ergebnis);
@@ -61,5 +62,13 @@ class SpielTipp {
         String[] arr = ergebnis.split(":");
         toreTeam1= Integer.valueOf(arr[0]);
         toreTeam2= Integer.valueOf(arr[1]);
+    }
+
+    public int getSpielTippPunkte() {
+        return spielTippPunkte;
+    }
+
+    public void setSpielTippPunkte(int spielTippPunkte) {
+        this.spielTippPunkte = spielTippPunkte;
     }
 }

@@ -52,6 +52,8 @@ public class TippMap {
                         Boolean.parseBoolean(jsonSpielTipp.getString(InternalConstants.TipperSpielIsEvaluated)));
                 spielTipp.setSpielId(
                         Integer.parseInt(jsonSpielTipp.getString(InternalConstants.TipperSpielId)));
+                spielTipp.setSpielTippPunkte(
+                        Integer.parseInt(jsonSpielTipp.getString(InternalConstants.TipperSpielPunkte)));
                 spielTippListe.add(spielTipp);
             } catch (JSONException e) {
                 e.printStackTrace();

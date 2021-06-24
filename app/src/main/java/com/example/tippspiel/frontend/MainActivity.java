@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.R;
+import com.example.tippspiel.basics.MyJsonWriter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        button = findViewById(R.id.SpieleClearButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearListe();
+            }
+        });
+
         button = findViewById(R.id.SpieleTippenButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,5 +74,8 @@ public class MainActivity extends AppCompatActivity {
     private void zeigeSpieleAn() {
         Intent intent = new Intent(this, SpielAnzeige.class);
         startActivity(intent);
+    }
+    private void clearListe() {
+        MyJsonWriter.write(InternalConstants.EmptyStr);
     }
 }

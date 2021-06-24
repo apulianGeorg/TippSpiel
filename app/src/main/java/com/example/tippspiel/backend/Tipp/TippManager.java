@@ -80,9 +80,7 @@ public class TippManager {
                         JSONObject jsonSpielTippObject = getJsonSpielTippObject(spielTipp);
                         jsonSpielTippArr.put(jsonSpielTippObject);
                     }
-                    JSONObject tipperSpieleObjekt = getJsonTipperSpieleObject(jsonSpielTippArr, InternalConstants.TipperSpiele);
-                    jsonTipperArr.put(getJsonTipperObject(tipper));
-                    jsonTipperArr.put(tipperSpieleObjekt);
+                    jsonTipperArr.put(getJsonTipperObject(tipper, jsonSpielTippArr));
                 }
             JSONObject tipperObjekt = getJsonTipperSpieleObject(jsonTipperArr, InternalConstants.Tipper);
 
@@ -103,24 +101,27 @@ public class TippManager {
         JSONObject jsonSpielTippObject = new JSONObject();
         jsonSpielTippObject.put(InternalConstants.TipperSpielId, spielTipp.getSpielId());
         jsonSpielTippObject.put(InternalConstants.TipperSpielErgebnis, spielTipp.getErgebnis());
+        jsonSpielTippObject.put(InternalConstants.TipperSpielPunkte, spielTipp.getSpielTippPunkte());
         jsonSpielTippObject.put(InternalConstants.TipperSpielIsEvaluated, spielTipp.isEvaluated());
         return jsonSpielTippObject;
     }
 
-    private static JSONObject getJsonTipperObject(Tipper tipper) throws JSONException {
+    private static JSONObject getJsonTipperObject(Tipper tipper, JSONArray jsonSpielTippArr) throws JSONException {
         JSONObject jsonTipperObject = new JSONObject();
         jsonTipperObject.put(InternalConstants.TipperId, tipper.getTipperId());
         jsonTipperObject.put(InternalConstants.TipperName, tipper.getName());
         jsonTipperObject.put(InternalConstants.TipperPunkte, tipper.getPunkte());
+        jsonTipperObject.put(InternalConstants.TipperSpiele, jsonSpielTippArr);
         return jsonTipperObject;
     }
 
-    public static void save() {
+    public static String save() {
         //Deltaabgleich
         List<Tipper> deltaTipperList = getDeltaTipperList();
         calculateTipperPoints(deltaTipperList);
         String jsonStr= getJsonString(deltaTipperList);
         MyJsonWriter.write(jsonStr);
+        return jsonStr;
     }
 
     private static void calculateTipperPoints(List<Tipper> deltaTipperList) {
@@ -131,7 +132,9 @@ public class TippManager {
                 if (!deltaSpielTipp.isEvaluated()){
                     Spiel correspondigSpiel = getCorrespondigSpiel(deltaSpielTipp.getSpielId(), spielListe);
                     if (correspondigSpiel.isMatchIsFinished()) {
-                        tipperPoints += getSpielPoints(deltaSpielTipp, correspondigSpiel);
+                        int punkte = getSpielPoints(deltaSpielTipp, correspondigSpiel);
+                        deltaSpielTipp.setSpielTippPunkte(punkte);
+                        tipperPoints += punkte;
                         deltaSpielTipp.setEvaluated(true);
                     }
                 }
@@ -227,11 +230,14 @@ public class TippManager {
 
     private static void addOrReplace(SpielTipp spielTippToAdd, List<SpielTipp> outTipperListForTipper) {
         for (SpielTipp outTipper : outTipperListForTipper) {
-            //Wurde das Spiel schon mal von dem Tipper ghetippt?
+            //Wurde das Spiel schon mal von dem Tipper getippt?
             if (outTipper.getSpielId() == spielTippToAdd.getSpielId()){
-                //Dann entfernen
-                outTipperListForTipper.remove(outTipper);
-                break;
+                //Dann entfernen, wenn noch nicht evaluated
+                if (!outTipper.isEvaluated()) {
+                    outTipperListForTipper.remove(outTipper);
+                    outTipperListForTipper.add(spielTippToAdd);
+                }
+                return;
             }
         }
         outTipperListForTipper.add(spielTippToAdd);
