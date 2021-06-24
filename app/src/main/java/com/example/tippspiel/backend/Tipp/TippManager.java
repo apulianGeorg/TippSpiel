@@ -4,7 +4,7 @@ import android.widget.EditText;
 
 import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.backend.Spiel.Spiel;
-import com.example.tippspiel.backend.SpielFactory;
+import com.example.tippspiel.backend.Spiel.SpielFactory;
 import com.example.tippspiel.basics.MyJsonWriter;
 import com.example.tippspiel.basics.MyReader;
 

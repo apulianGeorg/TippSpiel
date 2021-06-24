@@ -9,7 +9,7 @@ public class Spiel {
     private Team team1;
     private Team team2;
     private String location;
-    private boolean matchIsFinished;
+    private boolean matchIsFinished=false;
     private String gameTime;
 
     public Spiel(int matchId, Team team1, Team team2, String location, String gameTime, boolean matchIsFinished){

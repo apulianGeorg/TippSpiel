@@ -1,6 +1,5 @@
-package com.example.tippspiel.frontend;
+package com.example.tippspiel.frontend.activity;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,16 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tippspiel.R;
 import com.example.tippspiel.backend.Spiel.Spiel;
-import com.example.tippspiel.backend.SpielFactory;
+import com.example.tippspiel.backend.Spiel.SpielFactory;
 import com.example.tippspiel.backend.Tipp.TippManager;
 import com.example.tippspiel.backend.Tipp.TippMap;
 import com.example.tippspiel.backend.Tipp.Tipper;
 import com.example.tippspiel.basics.MyReader;
+import com.example.tippspiel.frontend.rowadapter.RowAdapterTipp;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpielTippAnzeige extends AppCompatActivity {
+public class SpielTippActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class SpielTippAnzeige extends AppCompatActivity {
 
         ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
 
-        RowTippAdapter adapter = new RowTippAdapter(this, spieleListe);
+        RowAdapterTipp adapter = new RowAdapterTipp(this, spieleListe);
         listView.setAdapter(adapter);
     }
 }

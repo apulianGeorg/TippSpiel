@@ -1,4 +1,4 @@
-package com.example.tippspiel.frontend;
+package com.example.tippspiel.frontend.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -62,17 +62,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void spieleTippen() {
-        Intent intent = new Intent(this, SpielTippAnzeige.class);
+        Intent intent = new Intent(this, SpielTippActivity.class);
         startActivity(intent);
     }
 
     private void zeigeHighscoreAn() {
-        Intent intent = new Intent(this, HighscoreAnzeige.class);
+        Intent intent = new Intent(this, HighscoreActivity.class);
         startActivity(intent);
     }
 
     private void zeigeSpieleAn() {
-        Intent intent = new Intent(this, SpielAnzeige.class);
+        Intent intent = new Intent(this, SpielActivity.class);
         startActivity(intent);
     }
     private void clearListe() {

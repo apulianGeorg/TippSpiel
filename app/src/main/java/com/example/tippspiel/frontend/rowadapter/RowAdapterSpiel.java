@@ -1,4 +1,4 @@
-package com.example.tippspiel.frontend;
+package com.example.tippspiel.frontend.rowadapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import static com.example.tippspiel.R.*;
 
-class RowSpielAdapter extends ArrayAdapter<Spiel> {
+public class RowAdapterSpiel extends ArrayAdapter<Spiel> {
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
 
@@ -27,7 +27,7 @@ class RowSpielAdapter extends ArrayAdapter<Spiel> {
         ImageView team2Flag;
     }
 
-    RowSpielAdapter(Activity context, ArrayList<Spiel> spiele)
+    public RowAdapterSpiel(Activity context, ArrayList<Spiel> spiele)
     {
         super(context, layout.list_row_spiele, id.team1Name,spiele);
         this._context = context;

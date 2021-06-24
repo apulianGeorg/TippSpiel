@@ -18,9 +18,8 @@
     <dimen name="tipperName_lenth">120dp</dimen>
     <dimen name="spielename_length">140dp</dimen>
     <dimen name="tipper_margin">12dp</dimen>
-    <dimen name="marginTopMain">40dp</dimen>
     <dimen name="marginBottomMain">40dp</dimen>
-    <dimen name="marginBottomToEnd">315dp</dimen>
+    <dimen name="marginBottomToEnd">300dp</dimen>
     <dimen name="buttomWidthMain">150dp</dimen>
     <dimen name="buttomHeightMain">60dp</dimen>
 </resources>

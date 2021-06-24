@@ -1,4 +1,4 @@
-package com.example.tippspiel.frontend;
+package com.example.tippspiel.frontend.rowadapter;
 
 import android.app.Activity;
 import android.text.Editable;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import static com.example.tippspiel.R.id;
 import static com.example.tippspiel.R.layout;
 
-class RowTippAdapter extends ArrayAdapter<Spiel> {
+public class RowAdapterTipp extends ArrayAdapter<Spiel> {
 
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
@@ -32,7 +32,7 @@ class RowTippAdapter extends ArrayAdapter<Spiel> {
         TextWatcher textWatcher;
     }
 
-    public RowTippAdapter(Activity context, ArrayList<Spiel> spiele)
+    public RowAdapterTipp(Activity context, ArrayList<Spiel> spiele)
     {
         super(context, layout.list_row_tipps, id.team1Name,spiele);
         this._context = context;

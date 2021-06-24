@@ -1,4 +1,4 @@
-package com.example.tippspiel.backend;
+package com.example.tippspiel.backend.Spiel;
 
 import com.example.tippspiel.backend.Spiel.Spiel;
 import com.example.tippspiel.basics.XmlReader;

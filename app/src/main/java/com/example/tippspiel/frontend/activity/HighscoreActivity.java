@@ -1,4 +1,4 @@
-package com.example.tippspiel.frontend;
+package com.example.tippspiel.frontend.activity;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -10,10 +10,11 @@ import com.example.tippspiel.backend.Tipp.TippManager;
 import com.example.tippspiel.backend.Tipp.TippMap;
 import com.example.tippspiel.backend.Tipp.Tipper;
 import com.example.tippspiel.basics.MyReader;
+import com.example.tippspiel.frontend.rowadapter.RowAdapterHighscore;
 
 import java.util.List;
 
-public class HighscoreAnzeige extends AppCompatActivity {
+public class HighscoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

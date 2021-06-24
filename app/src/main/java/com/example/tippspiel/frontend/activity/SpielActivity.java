@@ -1,4 +1,4 @@
-package com.example.tippspiel.frontend;
+package com.example.tippspiel.frontend.activity;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -7,11 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tippspiel.R;
 import com.example.tippspiel.backend.Spiel.Spiel;
-import com.example.tippspiel.backend.SpielFactory;
+import com.example.tippspiel.backend.Spiel.SpielFactory;
+import com.example.tippspiel.frontend.rowadapter.RowAdapterSpiel;
 
 import java.util.ArrayList;
 
-public class SpielAnzeige extends AppCompatActivity {
+public class SpielActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class SpielAnzeige extends AppCompatActivity {
 
         ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
 
-        RowSpielAdapter adapter = new RowSpielAdapter(this, spieleListe);
+        RowAdapterSpiel adapter = new RowAdapterSpiel(this, spieleListe);
         listView.setAdapter(adapter);
     }
 
