@@ -28,12 +28,7 @@ import java.util.Map;
 
 public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
 
-    private ArrayList<Spiel> spieleListe = new ArrayList<>();
-
-    private ArrayList<Spiel> getSpiele(){
-        fuelleSpieleListe();
-        return spieleListe;
-    }
+    private final ArrayList<Spiel> spieleListe = new ArrayList<>();
 
     private void fuelleSpieleListe(){
         String jsonStr = MyReader.
@@ -70,12 +65,11 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
     }
 
     private boolean isMatchIsFinished(JSONObject matchElement) {
-        boolean matchIsFinished;
+        boolean matchIsFinished=false;
         try {
             matchIsFinished = Boolean.parseBoolean(matchElement.getString(UrlConstants.MatchIsFinished));
         } catch (JSONException e) {
             e.printStackTrace();
-            matchIsFinished=false;
         }
         return matchIsFinished;
     }
@@ -171,7 +165,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         String matchMinute = getMatchMinute(jsonGoalGetter);
         boolean isOwnGoal = isOwnGoal(jsonGoalGetter);
         boolean isPenalty = isPenalty(jsonGoalGetter);
-        return new Goalgetter(goalGetterName, matchMinute, isPenalty, isOwnGoal);
+        return new Goalgetter(matchMinute);
     }
 
     private String getGoalGetterName(JSONObject jsonGoalGetter) {

@@ -43,19 +43,23 @@ class SpielTipp {
         this.spielId = spielId;
     }
 
-    public int getToreTeam1() {
-        if (toreTeam1==null) {
-            String[] torArray = ergebnis.split(":");
-            if (torArray.length != 2) {
-                throw new ArrayIndexOutOfBoundsException("Tore aus " + ergebnis + " nicht ermittelbar");
-            }
-            toreTeam1= Integer.valueOf(torArray[0]);
-            toreTeam2= Integer.valueOf(torArray[1]);
+    public Integer getToreTeam1() {
+        if (toreTeam1 == null)  {
+            setTore();
         }
         return toreTeam1;
     }
 
     public Integer getToreTeam2() {
+        if (toreTeam2 == null)  {
+            setTore();
+        }
         return toreTeam2;
+    }
+
+    private void setTore() {
+        String[] arr = ergebnis.split(":");
+        toreTeam1= Integer.valueOf(arr[0]);
+        toreTeam2= Integer.valueOf(arr[1]);
     }
 }

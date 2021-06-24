@@ -45,24 +45,12 @@ public class Spiel {
         this.team2 = team2;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
     private void setLocation(String location) {
         this.location = location;
     }
 
-    public boolean isMatchIsFinished() {
-        return matchIsFinished;
-    }
-
     private void setMatchIsFinished(boolean matchIsFinished) {
         this.matchIsFinished = matchIsFinished;
-    }
-
-    public String getGameTime() {
-        return gameTime;
     }
 
     private void setGameTime(String gameTime) {
@@ -81,5 +69,9 @@ public class Spiel {
         } else {
             return "  :  ";
         }
+    }
+
+    public boolean isMatchIsFinished() {
+        return matchIsFinished;
     }
 }

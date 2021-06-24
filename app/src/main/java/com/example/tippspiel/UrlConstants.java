@@ -12,19 +12,11 @@ public class UrlConstants {
     public final static String MatchMinute="MatchMinute";
     public final static String MatchIsFinished="MatchIsFinished";
     public final static String ScoreTeam1="ScoreTeam1";
-    public final static String ScoreTeam2="ScoreTeam2";
     //Unter Location
     public final static String Location="Location";
     public final static String LocationCity="LocationCity";
 
     public final static String MatchDateTime="MatchDateTime";
-    //Unter MatchResults
-    public final static String MatchResult="MatchResult";
-    public final static String PointsTeam1="PointsTeam1";
-    public final static String PointsTeam2="PointsTeam2";
-    public final static String ResultName="ResultName";
-    //Unter ResultName
-    public final static String Endergebnis ="Endergebnis";
 
     public final static String Team1 ="Team1";
     public final static String Team2 ="Team2";

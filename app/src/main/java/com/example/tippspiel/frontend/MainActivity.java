@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.SpieleAnzeigenButton);
+        Button button = findViewById(R.id.SpieleAnzeigenButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.HighscoreButton);
+        button = findViewById(R.id.HighscoreButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.SpieleTippenButton);
+        button = findViewById(R.id.SpieleTippenButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

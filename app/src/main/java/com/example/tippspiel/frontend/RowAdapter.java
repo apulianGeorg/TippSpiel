@@ -19,7 +19,7 @@ class RowAdapter extends ArrayAdapter<Spiel> {
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
 
-    class ViewHolder
+    static class ViewHolder
     {
         TextView team1Name;
         TextView team2Name;
@@ -37,7 +37,7 @@ class RowAdapter extends ArrayAdapter<Spiel> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if(convertView == null)
         {
@@ -46,11 +46,11 @@ class RowAdapter extends ArrayAdapter<Spiel> {
 
 
             holder = new ViewHolder();
-            holder.team1Flag = (ImageView) convertView.findViewById(id.team1Flag);
-            holder.team1Name = (TextView) convertView.findViewById(id.team1Name);
-            holder.ergebnis= (TextView) convertView.findViewById(id.ergebnis);
-            holder.team2Name = (TextView) convertView.findViewById(id.team2Name);
-            holder.team2Flag = (ImageView) convertView.findViewById(id.team2Flag);
+            holder.team1Flag = convertView.findViewById(id.team1Flag);
+            holder.team1Name = convertView.findViewById(id.team1Name);
+            holder.ergebnis= convertView.findViewById(id.ergebnis);
+            holder.team2Name = convertView.findViewById(id.team2Name);
+            holder.team2Flag = convertView.findViewById(id.team2Flag);
 
             convertView.setTag(holder);
         }

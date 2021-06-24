@@ -2,7 +2,6 @@ package com.example.tippspiel.backend.Spiel;
 
 import android.graphics.drawable.Drawable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
@@ -38,11 +37,8 @@ public class Team {
         this.teamIcon = teamIcon;
     }
 
-    public String getGoalsTeam() {
-        return String.valueOf(goalsTeam);
+    public int getGoalsTeam() {
+        return goalsTeam;
     }
 
-    public void setGoalsTeam(int goalsTeam) {
-        this.goalsTeam = goalsTeam;
-    }
 }

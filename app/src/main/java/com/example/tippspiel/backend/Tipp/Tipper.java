@@ -1,7 +1,5 @@
 package com.example.tippspiel.backend.Tipp;
 
-import com.example.tippspiel.backend.Spiel.Spiel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class Tipper {
 
     public Tipper() {
         setName("");
-        setTipperId(TippManager.getTipperId());
+        setTipperId(0);
         punkte=0;
     }
 

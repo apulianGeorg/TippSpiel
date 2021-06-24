@@ -2,7 +2,7 @@ package com.example.tippspiel.backend.Spiel;
 
 public class Goalgetter {
 
-    public Goalgetter(String name, String minute, boolean isPenalty, boolean isOwngoal){
+    public Goalgetter(String minute){
         setMinute(minute);
     }
 

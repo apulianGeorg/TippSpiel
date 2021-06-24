@@ -21,7 +21,7 @@ public class SpielAnzeige extends AppCompatActivity {
     }
 
     private void bindAdapterToListView() {
-        ListView listView = (ListView)findViewById(R.id.listview_activity_main);
+        ListView listView = findViewById(R.id.listview_activity_main);
 
         ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
 

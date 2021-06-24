@@ -21,7 +21,7 @@ class RowTippAdapter extends ArrayAdapter<Spiel> {
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
 
-    class ViewHolder
+    static class ViewHolder
     {
         TextView team1Name;
         TextView team2Name;
@@ -41,7 +41,7 @@ class RowTippAdapter extends ArrayAdapter<Spiel> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
-        ViewHolder holder = null;
+        ViewHolder holder;
 
         if(convertView == null)
         {
@@ -63,12 +63,12 @@ class RowTippAdapter extends ArrayAdapter<Spiel> {
     private ViewHolder getViewHolder(View convertView) {
         ViewHolder holder;
         holder = new ViewHolder();
-        holder.team1Flag = (ImageView) convertView.findViewById(id.team1Flag);
-        holder.team1Name = (TextView) convertView.findViewById(id.team1Name);
-        holder.ergebnisTipp= (EditText) convertView.findViewById(id.ergebnisTipp);
-        holder.tippSpieler= (EditText) convertView.findViewById(id.tippSpieler);
-        holder.team2Name = (TextView) convertView.findViewById(id.team2Name);
-        holder.team2Flag = (ImageView) convertView.findViewById(id.team2Flag);
+        holder.team1Flag = convertView.findViewById(id.team1Flag);
+        holder.team1Name = convertView.findViewById(id.team1Name);
+        holder.ergebnisTipp= convertView.findViewById(id.ergebnisTipp);
+        holder.tippSpieler= convertView.findViewById(id.tippSpieler);
+        holder.team2Name = convertView.findViewById(id.team2Name);
+        holder.team2Flag = convertView.findViewById(id.team2Flag);
         return holder;
     }
 
