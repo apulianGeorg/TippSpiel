@@ -74,10 +74,6 @@ public class TippManager {
                     JSONArray jsonSpielTippArr = new JSONArray();
 
                     for (SpielTipp spielTipp: tipper.getSpielTippList()) {
-                        //TODO: Brauche ich das noch?
-                        if (spielTipp.getErgebnis().equals(InternalConstants.EmptyStr)){
-                            continue;
-                        }
                         JSONObject jsonSpielTippObject = getJsonSpielTippObject(spielTipp);
                         jsonSpielTippArr.put(jsonSpielTippObject);
                     }

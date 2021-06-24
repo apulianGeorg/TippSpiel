@@ -26,8 +26,7 @@
         android:gravity="start" />
 
     <!-- Ergebnis-->
-    <!--Todo: evtl 2 Nummerfelder-->
-    <!--Todo: Anzeige und Tiüppanzeige im xml zusammenführen-->
+    <!--Todo: Anzeige und Tippanzeige im xml zusammenführen-->
     <EditText
         android:id="@+id/ergebnisTipp"
         android:layout_width="@dimen/teamGoals_lenth"

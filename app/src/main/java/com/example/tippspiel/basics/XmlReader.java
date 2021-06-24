@@ -220,6 +220,5 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
 
     @Override
     protected void onPostExecute(ArrayList<Spiel> spieleListe) {
-        //TODO: Soll da noch eas rein?
     }
 }
