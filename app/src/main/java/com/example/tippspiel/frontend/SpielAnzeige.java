@@ -25,7 +25,7 @@ public class SpielAnzeige extends AppCompatActivity {
 
         ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
 
-        RowAdapter adapter = new RowAdapter(this, spieleListe);
+        RowSpielAdapter adapter = new RowSpielAdapter(this, spieleListe);
         listView.setAdapter(adapter);
     }
 

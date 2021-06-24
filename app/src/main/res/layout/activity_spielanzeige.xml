@@ -12,7 +12,7 @@
         android:layout_marginEnd="@dimen/default_margin"
         android:layout_marginStart="@dimen/default_margin"
         android:divider="@color/colorDivider"
-        android:dividerHeight="@dimen/default_margin" />
+        android:dividerHeight="@dimen/row_elements_margin" />
 
 
 </LinearLayout>

@@ -14,8 +14,7 @@ import java.util.ArrayList;
 
 import static com.example.tippspiel.R.*;
 
-class RowAdapter extends ArrayAdapter<Spiel> {
-
+class RowSpielAdapter extends ArrayAdapter<Spiel> {
     private final Activity _context;
     private final ArrayList<Spiel> spiele;
 
@@ -28,7 +27,7 @@ class RowAdapter extends ArrayAdapter<Spiel> {
         ImageView team2Flag;
     }
 
-    public RowAdapter(Activity context, ArrayList<Spiel> spiele)
+    RowSpielAdapter(Activity context, ArrayList<Spiel> spiele)
     {
         super(context, layout.list_row_spiele, id.team1Name,spiele);
         this._context = context;
@@ -62,7 +61,7 @@ class RowAdapter extends ArrayAdapter<Spiel> {
         holder.team1Flag.setImageDrawable(spiele.get(position).getTeam1().getTeamIcon());
         holder.team1Name.setText(spiele.get(position).getTeam1().getTeamName());
         holder.ergebnis.setText(spiele.get(position).getResult());
-        holder.team2Name.setText(""+spiele.get(position).getTeam2().getTeamName());
+        holder.team2Name.setText(spiele.get(position).getTeam2().getTeamName());
         holder.team2Flag.setImageDrawable(spiele.get(position).getTeam2().getTeamIcon());
 
         return convertView;

@@ -4,7 +4,7 @@
     <string name="Highscore">Highscore</string>
     <string name="SpieleAnzeigen">Spiele Anzeigen</string>
     <string name="teams_Seperator">:</string>
-    <string name="SpielTipp">\ ??:??</string>
+    <string name="defaultSpielTipp">\?:?</string>
     <string name="save">Save</string>
     <string name="get">get</string>
     <string name="SpieleListeLöschen">Liste löschen</string>

@@ -52,8 +52,9 @@ public class TippManager {
         return "";
     }
 
-    public static void setTipperList(List<Tipper> mapFileToTipperList) {
+    public static List<Tipper> getTipperList(List<Tipper> mapFileToTipperList) {
         tipperList=mapFileToTipperList;
+        return tipperList;
     }
 
     public static void setTipperName(String tippSpieler) {

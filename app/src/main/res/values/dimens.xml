@@ -4,12 +4,23 @@
     <dimen name="team_margin">6dp</dimen>
     <dimen name="default_font_size">18sp</dimen>
 
-    <dimen name="row_padding">8dp</dimen>
+    <dimen name="row_padding">6dp</dimen>
+    <dimen name="row_tipperPadding">1dp</dimen>
     <dimen name="row_elements_margin">15dp</dimen>
     <dimen name="teamFlag_size">30dp</dimen>
     <dimen name="teamName_length">110dp</dimen>
+    <dimen name="tipperRanking_length">25dp</dimen>
+    <dimen name="tipperPoints_length">25dp</dimen>
     <dimen name="team_font_size">12sp</dimen>
-    <dimen name="goal_font_size">20sp</dimen>
+    <dimen name="tipper_font_size">16sp</dimen>
+    <dimen name="goal_font_size">15sp</dimen>
     <dimen name="teamGoals_lenth">60dp</dimen>
-    <dimen name="Spielename_length">140dp</dimen>
+    <dimen name="tipperName_lenth">120dp</dimen>
+    <dimen name="spielename_length">140dp</dimen>
+    <dimen name="tipper_margin">12dp</dimen>
+    <dimen name="marginTopMain">40dp</dimen>
+    <dimen name="marginBottomMain">40dp</dimen>
+    <dimen name="marginBottomToEnd">315dp</dimen>
+    <dimen name="buttomWidthMain">150dp</dimen>
+    <dimen name="buttomHeightMain">60dp</dimen>
 </resources>

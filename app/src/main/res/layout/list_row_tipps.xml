@@ -33,8 +33,8 @@
         android:layout_width="@dimen/teamGoals_lenth"
         android:inputType="datetime"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:hint="@string/SpielTipp"
+        android:gravity="center"
+        android:hint="@string/defaultSpielTipp"
         android:textSize="@dimen/goal_font_size"
         android:layout_centerInParent="true"/>
 

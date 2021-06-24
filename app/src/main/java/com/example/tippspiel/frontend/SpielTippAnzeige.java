@@ -57,8 +57,8 @@ public class SpielTippAnzeige extends AppCompatActivity {
     }
 
     private void getTipps() {
-        List<Tipper> tipperList=null;
-        TippManager.setTipperList(TippMap.mapFileToTipperList(MyReader.readFile()));
+        List<Tipper> tipperList=
+                TippManager.getTipperList(TippMap.mapFileToTipperList(MyReader.readFile()));
     }
 
     private void bindAdapterToListView() {
