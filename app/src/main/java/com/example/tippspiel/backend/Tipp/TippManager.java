@@ -194,12 +194,25 @@ public class TippManager {
                     }
                 }
             } else {
-                //Muss die TipperId setzen
-                tipperToAdd.setTipperId(outTipperList.size() + 1);
-                outTipperList.add(tipperToAdd);
+                outTipperList.add(getNeuerTipper(tipperToAdd, outTipperList.size() + 1));
             }
         }
         return outTipperList;
+    }
+
+    private static Tipper getNeuerTipper(Tipper tipperToAdd, int tipperId) {
+        //Muss die TipperId setzen
+        tipperToAdd.setTipperId(tipperId);
+        Tipper neuerTipper = new Tipper();
+        neuerTipper.setTipperId(tipperToAdd.getTipperId());
+        neuerTipper.setName(tipperToAdd.getName());
+        neuerTipper.setPunkte(tipperToAdd.getPunkte());
+        for (SpielTipp tippListeToAdd: tipperToAdd.getSpielTippList()) {
+            if (!tippListeToAdd.getErgebnis().equals(InternalConstants.EmptyStr)){
+                neuerTipper.addSpielTipp(tippListeToAdd.getSpielId(),tippListeToAdd.getErgebnis());
+            }
+        }
+        return neuerTipper;
     }
 
     private static List<SpielTipp> getTipperListForTipper(String tipperNameToAdd, List<Tipper> outTipperList) {
