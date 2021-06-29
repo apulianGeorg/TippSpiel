@@ -11,12 +11,14 @@ import android.widget.Button;
 
 import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.R;
+import com.example.tippspiel.backend.Spiel.SpielFactory;
 import com.example.tippspiel.basics.MyJsonWriter;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SpielFactory.getSpiele();
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);

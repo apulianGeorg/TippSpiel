@@ -26,7 +26,16 @@ class SpielTipp {
         this.ergebnis = ergebnis.trim()
                 .replace("-",":")
                 .replace(" ",":");
+        if (this.ergebnis.length()>0){
+            try{
+                setTore();
+            } catch (IndexOutOfBoundsException e) {
+                //TODO: Sauberer strukturieren und dann
+                //TODO die Exception weitergeben an die Oberfläche, wenn dort jmd. Blödsinn macht
+            }
+        }
     }
+
 
     public boolean isEvaluated() {
         return isEvaluated;
@@ -45,23 +54,20 @@ class SpielTipp {
     }
 
     public Integer getToreTeam1() {
-        if (toreTeam1 == null)  {
-            setTore();
-        }
         return toreTeam1;
     }
 
     public Integer getToreTeam2() {
-        if (toreTeam2 == null)  {
-            setTore();
-        }
         return toreTeam2;
     }
 
-    private void setTore() {
+    private void setTore() throws ArrayIndexOutOfBoundsException{
         String[] arr = ergebnis.split(":");
         toreTeam1= Integer.valueOf(arr[0]);
         toreTeam2= Integer.valueOf(arr[1]);
+        if (arr.length > 1){
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
 
     public int getSpielTippPunkte() {

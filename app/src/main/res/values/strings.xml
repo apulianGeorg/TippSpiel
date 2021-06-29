@@ -8,4 +8,8 @@
     <string name="save">Save</string>
     <string name="get">get</string>
     <string name="SpieleListeLöschen">Liste löschen</string>
+    <string name="TipperSelect">Tippspielername:</string>
+    <string name="OK">OK</string>
+    <string name="LigaSelect">Ligaauswahl</string>
+    <string name="userName">Username</string>
 </resources>

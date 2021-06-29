@@ -25,7 +25,12 @@ public class TippManager {
             if (tipper.getName().equals(tippSpielerName)) {
                 for (SpielTipp spielTipp : tipper.getSpielTippList()) {
                     if (spielTipp.getSpielId() == matchId) {
-                       spielTipp.setErgebnis(ergebnisTipp);
+                        try {
+                            spielTipp.setErgebnis(ergebnisTipp);
+                        }
+                        catch (ArrayIndexOutOfBoundsException e){
+
+                        }
                        return;
                     }
                 }
@@ -119,6 +124,11 @@ public class TippManager {
         String jsonStr= getJsonString(deltaTipperList);
         MyJsonWriter.write(jsonStr);
         return jsonStr;
+    }
+
+    public static void calculateTipperPoints(){
+        List<Tipper> existingTipperList = getExistingTipperList();
+        calculateTipperPoints(existingTipperList);
     }
 
     private static void calculateTipperPoints(List<Tipper> deltaTipperList) {

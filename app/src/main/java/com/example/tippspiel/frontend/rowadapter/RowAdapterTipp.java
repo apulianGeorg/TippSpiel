@@ -1,8 +1,6 @@
 package com.example.tippspiel.frontend.rowadapter;
 
 import android.app.Activity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +27,7 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
         EditText ergebnisTipp;
         ImageView team1Flag;
         ImageView team2Flag;
-        TextWatcher textWatcher;
+        //TextWatcher textWatcher;
     }
 
     public RowAdapterTipp(Activity context, ArrayList<Spiel> spiele)
@@ -53,7 +51,8 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
         }
         holder = (ViewHolder) convertView.getTag();
 
-        setTextWatcher(position, holder);
+        //setTextWatcher(position, holder);
+        setFocusWatcher(position, holder);
 
         setHolderValues(position, holder);
 
@@ -72,6 +71,25 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
         return holder;
     }
 
+    private void setFocusWatcher(final int position, final ViewHolder holder){
+        //FocusWatcher
+        holder.ergebnisTipp.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    EditText et= (EditText) v;
+                    String s= et.getText().toString();
+                    int matchId = spiele.get(position).getMatchid();
+                    TippManager.neuerTipp(holder.tippSpieler, matchId, s);
+                }
+            }
+        });
+    }
+
+    /*
     private void setTextWatcher(final int position, final ViewHolder holder) {
         // Remove any existing TextWatcher that will be keyed to the wrong ListItem
         if (holder.textWatcher != null)
@@ -93,8 +111,10 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
             public void afterTextChanged(Editable s) {
             }
         };
+
         holder.ergebnisTipp.addTextChangedListener(holder.textWatcher);
     }
+*/
 
     private void setHolderValues(int position, ViewHolder holder) {
         int matchId = spiele.get(position).getMatchid();
