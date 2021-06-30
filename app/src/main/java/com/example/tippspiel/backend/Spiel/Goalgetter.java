@@ -2,13 +2,22 @@ package com.example.tippspiel.backend.Spiel;
 
 public class Goalgetter {
 
-    public Goalgetter(String minute){
+    //TODO: Noch setzen uns ausgeben
+    private int minute;
+    private String name;
+    private boolean isOwnGoal;
+    private boolean isPenalty;
+
+    public Goalgetter(String name, String minute, boolean isOwnGoal, boolean isPenalty){
+        this.name=name;
         setMinute(minute);
+        this.isOwnGoal=isOwnGoal;
+        this.isPenalty= isPenalty;
     }
 
     private void setMinute(String minute) {
-        int minute1;
+
         if (minute != null && !minute.equals("null"))
-        minute1 = Integer.parseInt(minute);
+        this.minute = Integer.parseInt(minute);
     }
 }

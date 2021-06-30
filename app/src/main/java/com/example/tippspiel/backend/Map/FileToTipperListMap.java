@@ -1,6 +1,8 @@
-package com.example.tippspiel.backend.Tipp;
+package com.example.tippspiel.backend.Map;
 
 import com.example.tippspiel.InternalConstants;
+import com.example.tippspiel.backend.Tipp.MatchTipp;
+import com.example.tippspiel.backend.Tipp.Tipper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,7 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TippMap {
+public class FileToTipperListMap {
     public static List<Tipper> mapFileToTipperList(String fileInput){
         List<Tipper> tipperList = new ArrayList<>();
         try {
@@ -28,9 +30,9 @@ public class TippMap {
         Tipper tipper = new Tipper();
         try {
             tipper.setName(tipperString.getString(InternalConstants.TipperName));
-            tipper.setPunkte(Integer.parseInt(tipperString.getString(InternalConstants.TipperPunkte)));
+            tipper.setPoints(Integer.parseInt(tipperString.getString(InternalConstants.TipperPunkte)));
             tipper.setTipperId(Integer.parseInt(tipperString.getString(InternalConstants.TipperId)));
-            tipper.setSpielTippList(
+            tipper.setMatchTippList(
                     getTippListe(
                             new JSONArray(tipperString.getString(InternalConstants.TipperSpiele))));
         }
@@ -41,18 +43,18 @@ public class TippMap {
         return tipper;
     }
 
-    private static List<SpielTipp> getTippListe(JSONArray jsonArray) {
-        ArrayList<SpielTipp> spielTippListe=new ArrayList<>();
+    private static List<MatchTipp> getTippListe(JSONArray jsonArray) {
+        ArrayList<MatchTipp> spielTippListe=new ArrayList<>();
         for(int idx =0; idx < jsonArray.length(); idx++){
-            SpielTipp spielTipp = new SpielTipp();
+            MatchTipp spielTipp = new MatchTipp();
             try {
                 JSONObject jsonSpielTipp = jsonArray.getJSONObject(idx);
-                spielTipp.setErgebnis(jsonSpielTipp.getString(InternalConstants.TipperSpielErgebnis));
+                spielTipp.setResult(jsonSpielTipp.getString(InternalConstants.TipperSpielErgebnis));
                 spielTipp.setEvaluated(
                         Boolean.parseBoolean(jsonSpielTipp.getString(InternalConstants.TipperSpielIsEvaluated)));
-                spielTipp.setSpielId(
+                spielTipp.setMatchId(
                         Integer.parseInt(jsonSpielTipp.getString(InternalConstants.TipperSpielId)));
-                spielTipp.setSpielTippPunkte(
+                spielTipp.setMatchTippPoints(
                         Integer.parseInt(jsonSpielTipp.getString(InternalConstants.TipperSpielPunkte)));
                 spielTippListe.add(spielTipp);
             } catch (JSONException e) {

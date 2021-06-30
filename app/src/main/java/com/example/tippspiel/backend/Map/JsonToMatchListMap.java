@@ -1,50 +1,37 @@
-package com.example.tippspiel.basics;
-
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
+package com.example.tippspiel.backend.Map;
 
 import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.UrlConstants;
 import com.example.tippspiel.backend.Spiel.Goalgetter;
-import com.example.tippspiel.backend.Spiel.Spiel;
+import com.example.tippspiel.backend.Spiel.Match;
 import com.example.tippspiel.backend.Spiel.Team;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
+public class JsonToMatchListMap {
 
-    private final ArrayList<Spiel> spieleListe = new ArrayList<>();
-
-    private void fuelleSpieleListe(){
-        String jsonStr = MyReader.
-                ReadHtmlPageAsString();
+    public static ArrayList<Match> mapJsonToMatchList(String jsonStr){
+        ArrayList<Match> matchList = new ArrayList<>();
         try {
             JSONArray jsonArr = new JSONArray(jsonStr);
             for (int arrIdx = 0; arrIdx < jsonArr.length(); arrIdx ++){
-                Spiel spiel = getSpiel(jsonArr.getJSONObject(arrIdx));
-                spieleListe.add(spiel);
+                Match spiel = getSpiel(jsonArr.getJSONObject(arrIdx));
+                matchList.add(spiel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return matchList;
     }
 
-    private Spiel getSpiel(JSONObject matchElement)  {
+    private static Match getSpiel(JSONObject matchElement)  {
         if (matchElement== null){
             return null;
         }
@@ -61,10 +48,10 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         team1.addGoalgetters(teamGoalgetterListen.get(1));
         team2.addGoalgetters(teamGoalgetterListen.get(2));
 
-        return new Spiel(matchId, team1, team2,spielOrt, spielZeit, matchIsFinished);
+        return new Match(matchId, team1, team2,spielOrt, spielZeit, matchIsFinished);
     }
 
-    private boolean isMatchIsFinished(JSONObject matchElement) {
+    private static boolean isMatchIsFinished(JSONObject matchElement) {
         boolean matchIsFinished=false;
         try {
             matchIsFinished = Boolean.parseBoolean(matchElement.getString(UrlConstants.MatchIsFinished));
@@ -74,7 +61,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return matchIsFinished;
     }
 
-    private String getSpielZeit(JSONObject matchElement) {
+    private static String getSpielZeit(JSONObject matchElement) {
         String spielZeit;
         try {
             spielZeit = matchElement.getString(UrlConstants.MatchDateTime);
@@ -85,7 +72,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return spielZeit;
     }
 
-    private int getMatchId(JSONObject matchElement) {
+    private static int getMatchId(JSONObject matchElement) {
         int matchId;
         try {
             matchId = Integer.parseInt(matchElement.getString(UrlConstants.MatchId));
@@ -97,7 +84,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return matchId;
     }
 
-    private String getSpielort(JSONObject matchElement) {
+    private static String getSpielort(JSONObject matchElement) {
         try {
             return matchElement.getJSONObject(UrlConstants.Location).getString(UrlConstants.LocationCity);
         } catch (JSONException e) {
@@ -105,36 +92,24 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         }
     }
 
-    private Team getTeam(JSONObject matchElement, String teamStr) {
+    private static Team getTeam(JSONObject matchElement, String teamStr) {
         try {
             JSONObject jsonTeam = matchElement.getJSONObject(teamStr);
             String teamName = jsonTeam.getString(UrlConstants.TeamName);
-            Drawable teamIcon = drawableFromUrl(jsonTeam.getString(UrlConstants.TeamIconUrl));
-            return new Team(teamName, teamIcon);
+            String teamIconUrl = jsonTeam.getString(UrlConstants.TeamIconUrl);
+            return new Team(teamName, teamIconUrl);
         } catch (Exception e) {
             e.printStackTrace();
             return new Team(InternalConstants.EmptyStr,null);
         }
     }
 
-    private Drawable drawableFromUrl(String url) throws IOException {
-        Bitmap x;
-
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.connect();
-        InputStream input = connection.getInputStream();
-
-        x = BitmapFactory.decodeStream(input);
-        return new BitmapDrawable(Resources.getSystem(), x);
-    }
-
-    private Map<Integer, List<Goalgetter>> getGoalgetterList(JSONObject matchElement) {
+    private static Map<Integer, List<Goalgetter>> getGoalgetterList(JSONObject matchElement) {
         List <Goalgetter>  goalgetterList1 = new ArrayList<>();
         List <Goalgetter>  goalgetterList2 = new ArrayList<>();
         Map<Integer, List<Goalgetter>> goalgetterDictionary = new HashMap<>();
 
         int toreTeam1=0;
-        int toreTeam2=0;
         try {
             JSONArray goalList = matchElement.getJSONArray(UrlConstants.Goals);
             for (int temp = 0; temp < goalList.length(); temp++) {
@@ -143,7 +118,6 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
                     toreTeam1++;
                     goalgetterList1.add(getGoalgetter(jsonGoalGetter));
                 } else {
-                    toreTeam2++;
                     goalgetterList2.add(getGoalgetter(jsonGoalGetter));
                 }
             }
@@ -160,15 +134,15 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return goalgetterDictionary;
     }
 
-    private Goalgetter getGoalgetter(JSONObject jsonGoalGetter){
+    private static Goalgetter getGoalgetter(JSONObject jsonGoalGetter){
         String goalGetterName = getGoalGetterName(jsonGoalGetter);
         String matchMinute = getMatchMinute(jsonGoalGetter);
         boolean isOwnGoal = isOwnGoal(jsonGoalGetter);
         boolean isPenalty = isPenalty(jsonGoalGetter);
-        return new Goalgetter(matchMinute);
+        return new Goalgetter(goalGetterName, matchMinute,isOwnGoal,isPenalty);
     }
 
-    private String getGoalGetterName(JSONObject jsonGoalGetter) {
+    private static String getGoalGetterName(JSONObject jsonGoalGetter) {
         String goalGetterName;
         try {
             goalGetterName = jsonGoalGetter.getString(UrlConstants.GoalGetterName);
@@ -179,7 +153,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return goalGetterName;
     }
 
-    private String getMatchMinute(JSONObject jsonGoalGetter) {
+    private static String getMatchMinute(JSONObject jsonGoalGetter) {
         String matchMinute;
         try {
             matchMinute = jsonGoalGetter.getString(UrlConstants.MatchMinute);
@@ -190,7 +164,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return matchMinute;
     }
 
-    private boolean isOwnGoal(JSONObject jsonGoalGetter) {
+    private static boolean isOwnGoal(JSONObject jsonGoalGetter) {
         boolean isOwnGoal;
         try {
             isOwnGoal = Boolean.parseBoolean(jsonGoalGetter.getString(UrlConstants.IsOwnGoal));
@@ -201,7 +175,7 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
         return isOwnGoal;
     }
 
-    private boolean isPenalty(JSONObject jsonGoalGetter) {
+    private static boolean isPenalty(JSONObject jsonGoalGetter) {
         boolean isPenalty;
         try {
             isPenalty = Boolean.parseBoolean(jsonGoalGetter.getString(UrlConstants.IsPenalty));
@@ -210,15 +184,5 @@ public class XmlReader extends AsyncTask<Void, Void, ArrayList<Spiel>> {
             isPenalty=false;
         }
         return isPenalty;
-    }
-
-    @Override
-    protected ArrayList<Spiel> doInBackground(Void... voids) {
-        fuelleSpieleListe();
-        return spieleListe;
-    }
-
-    @Override
-    protected void onPostExecute(ArrayList<Spiel> spieleListe) {
     }
 }

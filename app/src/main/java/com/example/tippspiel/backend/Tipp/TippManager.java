@@ -1,12 +1,11 @@
 package com.example.tippspiel.backend.Tipp;
 
-import android.widget.EditText;
-
 import com.example.tippspiel.InternalConstants;
-import com.example.tippspiel.backend.Spiel.Spiel;
-import com.example.tippspiel.backend.Spiel.SpielFactory;
+import com.example.tippspiel.backend.Map.FileToTipperListMap;
+import com.example.tippspiel.backend.Spiel.Match;
+import com.example.tippspiel.backend.Spiel.MatchFactory;
+import com.example.tippspiel.basics.MyFileReader;
 import com.example.tippspiel.basics.MyJsonWriter;
-import com.example.tippspiel.basics.MyReader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,40 +15,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TippManager {
+    private static String tipperName;
     private static List<Tipper> tipperList = new ArrayList<>();
 
-    public static void neuerTipp(EditText tippSpielerNameEditText, int matchId, String ergebnisTipp) {
-        String tippSpielerName = (tippSpielerNameEditText==null) ? "" : tippSpielerNameEditText.getText().toString();
-
+    public static void neuerTipp(int matchId, String ergebnisTipp) {
         for (Tipper tipper : tipperList) {
-            if (tipper.getName().equals(tippSpielerName)) {
-                for (SpielTipp spielTipp : tipper.getSpielTippList()) {
-                    if (spielTipp.getSpielId() == matchId) {
+            if (tipper.getName().equals(tipperName)) {
+                for (MatchTipp matchTipp : tipper.getMatchTippList()) {
+                    if (matchTipp.getMatchId() == matchId) {
                         try {
-                            spielTipp.setErgebnis(ergebnisTipp);
+                            matchTipp.setResult(ergebnisTipp);
                         }
-                        catch (ArrayIndexOutOfBoundsException e){
+                        catch (ArrayIndexOutOfBoundsException ignored){
 
                         }
                        return;
                     }
                 }
-                tipper.addSpielTipp(matchId, ergebnisTipp);
+                tipper.addMatchTipp(matchId, ergebnisTipp);
                 return;
             }
         }
-        tipperList.add(new Tipper(tippSpielerName, 0, matchId, ergebnisTipp));
+        tipperList.add(new Tipper(tipperName, 0, matchId, ergebnisTipp));
     }
 
-    public static String tipperListGet(EditText tippSpielerNameEditText, int matchId) {
-        String tippSpielerName = (tippSpielerNameEditText==null) ? "" :
-                tippSpielerNameEditText.getText().toString();
-        //TODO: Hashmaps
+    public static String tipperListGet(int matchId) {
         for (Tipper tipper : tipperList) {
-            if (tipper.getName().equals(tippSpielerName)) {
-                for (SpielTipp spielTipp : tipper.getSpielTippList()) {
-                    if (spielTipp.getSpielId() == matchId) {
-                        return spielTipp.getErgebnis();
+            if (tipper.getName().equals(tipperName)) {
+                for (MatchTipp matchTipp : tipper.getMatchTippList()) {
+                    if (matchTipp.getMatchId() == matchId) {
+                        return matchTipp.getResult();
                     }
                 }
             }
@@ -62,29 +57,23 @@ public class TippManager {
         return tipperList;
     }
 
-    public static void setTipperName(String tippSpieler) {
-        for (Tipper tipper : tipperList) {
-            if (tipper.getName().equals(InternalConstants.EmptyStr)){
-                tipper.setName(tippSpieler);
-                return;
-            }
-
-        }
+    public void setTipperName(String tipperName) {
+        TippManager.tipperName = tipperName;
     }
 
     private static String getJsonString(List<Tipper> tipperListForJson) {
         try {
                 JSONArray jsonTipperArr = new JSONArray();
                 for (Tipper tipper : tipperListForJson) {
-                    JSONArray jsonSpielTippArr = new JSONArray();
+                    JSONArray jsonMatchTippArr = new JSONArray();
 
-                    for (SpielTipp spielTipp: tipper.getSpielTippList()) {
-                        JSONObject jsonSpielTippObject = getJsonSpielTippObject(spielTipp);
-                        jsonSpielTippArr.put(jsonSpielTippObject);
+                    for (MatchTipp matchTipp: tipper.getMatchTippList()) {
+                        JSONObject jsonMatchTippObject = getJsonMatchTippObject(matchTipp);
+                        jsonMatchTippArr.put(jsonMatchTippObject);
                     }
-                    jsonTipperArr.put(getJsonTipperObject(tipper, jsonSpielTippArr));
+                    jsonTipperArr.put(getJsonTipperObject(tipper, jsonMatchTippArr));
                 }
-            JSONObject tipperObjekt = getJsonTipperSpieleObject(jsonTipperArr, InternalConstants.Tipper);
+            JSONObject tipperObjekt = getJsonTipperObject(jsonTipperArr);
 
             return tipperObjekt.toString();
             } catch ( JSONException e) {
@@ -93,27 +82,27 @@ public class TippManager {
             return InternalConstants.EmptyStr;
     }
 
-    private static JSONObject getJsonTipperSpieleObject(JSONArray jsonSpielTippArr, String tipperSpiele) throws JSONException {
-        JSONObject tipperSpieleObjekt = new JSONObject();
-        tipperSpieleObjekt.put(tipperSpiele, jsonSpielTippArr);
-        return tipperSpieleObjekt;
+    private static JSONObject getJsonTipperObject(JSONArray jsonTippArr) throws JSONException {
+        JSONObject tipperObjekt = new JSONObject();
+        tipperObjekt.put(InternalConstants.Tipper, jsonTippArr);
+        return tipperObjekt;
     }
 
-    private static JSONObject getJsonSpielTippObject(SpielTipp spielTipp) throws JSONException {
-        JSONObject jsonSpielTippObject = new JSONObject();
-        jsonSpielTippObject.put(InternalConstants.TipperSpielId, spielTipp.getSpielId());
-        jsonSpielTippObject.put(InternalConstants.TipperSpielErgebnis, spielTipp.getErgebnis());
-        jsonSpielTippObject.put(InternalConstants.TipperSpielPunkte, spielTipp.getSpielTippPunkte());
-        jsonSpielTippObject.put(InternalConstants.TipperSpielIsEvaluated, spielTipp.isEvaluated());
-        return jsonSpielTippObject;
+    private static JSONObject getJsonMatchTippObject(MatchTipp matchTipp) throws JSONException {
+        JSONObject jsonMatchTippObjekt = new JSONObject();
+        jsonMatchTippObjekt.put(InternalConstants.TipperSpielId, matchTipp.getMatchId());
+        jsonMatchTippObjekt.put(InternalConstants.TipperSpielErgebnis, matchTipp.getResult());
+        jsonMatchTippObjekt.put(InternalConstants.TipperSpielPunkte, matchTipp.getMatchTippPoints());
+        jsonMatchTippObjekt.put(InternalConstants.TipperSpielIsEvaluated, matchTipp.isEvaluated());
+        return jsonMatchTippObjekt;
     }
 
-    private static JSONObject getJsonTipperObject(Tipper tipper, JSONArray jsonSpielTippArr) throws JSONException {
+    private static JSONObject getJsonTipperObject(Tipper tipper, JSONArray jsonTippArr) throws JSONException {
         JSONObject jsonTipperObject = new JSONObject();
         jsonTipperObject.put(InternalConstants.TipperId, tipper.getTipperId());
         jsonTipperObject.put(InternalConstants.TipperName, tipper.getName());
-        jsonTipperObject.put(InternalConstants.TipperPunkte, tipper.getPunkte());
-        jsonTipperObject.put(InternalConstants.TipperSpiele, jsonSpielTippArr);
+        jsonTipperObject.put(InternalConstants.TipperPunkte, tipper.getPoints());
+        jsonTipperObject.put(InternalConstants.TipperSpiele, jsonTippArr);
         return jsonTipperObject;
     }
 
@@ -126,35 +115,31 @@ public class TippManager {
         return jsonStr;
     }
 
-    public static void calculateTipperPoints(){
-        List<Tipper> existingTipperList = getExistingTipperList();
-        calculateTipperPoints(existingTipperList);
-    }
-
     private static void calculateTipperPoints(List<Tipper> deltaTipperList) {
-        ArrayList<Spiel> spielListe = SpielFactory.getSpiele();
+        ArrayList<Match> matchList = MatchFactory.getMatches();
         for (Tipper deltaTipper : deltaTipperList) {
-            int tipperPoints= deltaTipper.getPunkte();
-            for (SpielTipp deltaSpielTipp :deltaTipper.getSpielTippList()) {
-                if (!deltaSpielTipp.isEvaluated()){
-                    Spiel correspondigSpiel = getCorrespondigSpiel(deltaSpielTipp.getSpielId(), spielListe);
-                    if (correspondigSpiel.isMatchIsFinished()) {
-                        int punkte = getSpielPoints(deltaSpielTipp, correspondigSpiel);
-                        deltaSpielTipp.setSpielTippPunkte(punkte);
+            int tipperPoints= deltaTipper.getPoints();
+            for (MatchTipp deltaMatchTipp :deltaTipper.getMatchTippList()) {
+                if (!deltaMatchTipp.isEvaluated()){
+                    Match correspondingMatch = getCorrespondigMatch(deltaMatchTipp.getMatchId(), matchList);
+                    //noinspection ConstantConditions
+                    if (correspondingMatch.isMatchIsFinished()) {
+                        int punkte = getMatchPoints(deltaMatchTipp, correspondingMatch);
+                        deltaMatchTipp.setMatchTippPoints(punkte);
                         tipperPoints += punkte;
-                        deltaSpielTipp.setEvaluated(true);
+                        deltaMatchTipp.setEvaluated(true);
                     }
                 }
             }
-            deltaTipper.setPunkte(tipperPoints);
+            deltaTipper.setPoints(tipperPoints);
         }
     }
 
-    private static int getSpielPoints(SpielTipp deltaSpielTipp, Spiel correspondigSpiel) {
-        int toreTeam1=correspondigSpiel.getTeam1().getGoalsTeam();
-        int toreTeam2=correspondigSpiel.getTeam2().getGoalsTeam();
-        int tippTeam1 = deltaSpielTipp.getToreTeam1();
-        int tippTeam2 = deltaSpielTipp.getToreTeam2();
+    private static int getMatchPoints(MatchTipp deltaMatchTipp, Match correspondigMatch) {
+        int toreTeam1=correspondigMatch.getTeam1().getGoalsTeam();
+        int toreTeam2=correspondigMatch.getTeam2().getGoalsTeam();
+        int tippTeam1 = deltaMatchTipp.getGoalsTeam1();
+        int tippTeam2 = deltaMatchTipp.getGoalsTeam2();
 
         //Korrektes Ergebnis
         if(tippTeam1==toreTeam1 && tippTeam2 == toreTeam2){
@@ -172,10 +157,10 @@ public class TippManager {
         return 0;
     }
 
-    private static Spiel getCorrespondigSpiel(int spielId, ArrayList<Spiel> spielListe) {
-        for (Spiel spiel: spielListe) {
-            if (spiel.getMatchid() == spielId){
-                return spiel;
+    private static Match getCorrespondigMatch(int matchId, ArrayList<Match> matchList) {
+        for (Match match: matchList) {
+            if (match.getMatchid() == matchId){
+                return match;
             }
         }
         //Das darf eigentlichj nicht sein. Jeder Tipp muss ein Spiel dazu haben
@@ -188,19 +173,18 @@ public class TippManager {
     }
 
     private static List<Tipper> getExistingTipperList() {
-        return TippMap.mapFileToTipperList(MyReader.readFile());
+        return FileToTipperListMap.mapFileToTipperList(MyFileReader.readFile());
     }
 
     private static List<Tipper> getDeltaList(List<Tipper> tipperListToAdd, List<Tipper> existingTipperList) {
         List<Tipper> outTipperList = new ArrayList<>(existingTipperList);
 
-        //TODO: Da muss eine HashMap her
         for (Tipper tipperToAdd:tipperListToAdd) {
-            List<SpielTipp> outTipperListForTipper = getTipperListForTipper(tipperToAdd.getName(), outTipperList);
+            List<MatchTipp> outTipperListForTipper = getTipperListForTipper(tipperToAdd.getName(), outTipperList);
             if (outTipperListForTipper != null){
-                for (SpielTipp spielTippToAdd: tipperToAdd.getSpielTippList()) {
-                    if (!spielTippToAdd.getErgebnis().equals(InternalConstants.EmptyStr)){
-                        addOrReplace(spielTippToAdd, outTipperListForTipper);
+                for (MatchTipp matchTippToAdd: tipperToAdd.getMatchTippList()) {
+                    if (!matchTippToAdd.getResult().equals(InternalConstants.EmptyStr)){
+                        addOrReplace(matchTippToAdd, outTipperListForTipper);
                     }
                 }
             } else {
@@ -216,37 +200,37 @@ public class TippManager {
         Tipper neuerTipper = new Tipper();
         neuerTipper.setTipperId(tipperToAdd.getTipperId());
         neuerTipper.setName(tipperToAdd.getName());
-        neuerTipper.setPunkte(tipperToAdd.getPunkte());
-        for (SpielTipp tippListeToAdd: tipperToAdd.getSpielTippList()) {
-            if (!tippListeToAdd.getErgebnis().equals(InternalConstants.EmptyStr)){
-                neuerTipper.addSpielTipp(tippListeToAdd.getSpielId(),tippListeToAdd.getErgebnis());
+        neuerTipper.setPoints(tipperToAdd.getPoints());
+        for (MatchTipp tippListeToAdd: tipperToAdd.getMatchTippList()) {
+            if (!tippListeToAdd.getResult().equals(InternalConstants.EmptyStr)){
+                neuerTipper.addMatchTipp(tippListeToAdd.getMatchId(),tippListeToAdd.getResult());
             }
         }
         return neuerTipper;
     }
 
-    private static List<SpielTipp> getTipperListForTipper(String tipperNameToAdd, List<Tipper> outTipperList) {
+    private static List<MatchTipp> getTipperListForTipper(String tipperNameToAdd, List<Tipper> outTipperList) {
         for (Tipper outTipper: outTipperList) {
             if (outTipper.getName().equals(tipperNameToAdd)){
-                return outTipper.getSpielTippList();
+                return outTipper.getMatchTippList();
             }
         }
         //Den Tipper gibt es noch nicht
         return null;
     }
 
-    private static void addOrReplace(SpielTipp spielTippToAdd, List<SpielTipp> outTipperListForTipper) {
-        for (SpielTipp outTipper : outTipperListForTipper) {
+    private static void addOrReplace(MatchTipp matchTippToAdd, List<MatchTipp> outTipperListForTipper) {
+        for (MatchTipp outTipper : outTipperListForTipper) {
             //Wurde das Spiel schon mal von dem Tipper getippt?
-            if (outTipper.getSpielId() == spielTippToAdd.getSpielId()){
+            if (outTipper.getMatchId() == matchTippToAdd.getMatchId()){
                 //Dann entfernen, wenn noch nicht evaluated
                 if (!outTipper.isEvaluated()) {
                     outTipperListForTipper.remove(outTipper);
-                    outTipperListForTipper.add(spielTippToAdd);
+                    outTipperListForTipper.add(matchTippToAdd);
                 }
                 return;
             }
         }
-        outTipperListForTipper.add(spielTippToAdd);
+        outTipperListForTipper.add(matchTippToAdd);
     }
 }

@@ -2,17 +2,23 @@ package com.example.tippspiel.backend.Spiel;
 
 import android.graphics.drawable.Drawable;
 
+import com.example.tippspiel.InternalConstants;
+
 import java.util.List;
 
 public class Team {
     private String teamName;
-    private Drawable teamIcon;
     private int goalsTeam;
 
-    public Team (String teamName, Drawable teamIcon){
-        setTeamName(teamName);
-        setTeamIcon(teamIcon);
+    public Team (String teamName, String teamIconUrl){
+        this.teamName=teamName;
+        TeamInfo.addIfNotExistsTeamInfo(teamName, teamIconUrl);
     }
+
+    public Team(Team team) {
+        this(team.teamName, InternalConstants.EmptyStr);
+    }
+
     public void addGoalgetters(List<Goalgetter> goalgetters){
         if (goalgetters==null){
             goalsTeam=0;
@@ -25,20 +31,16 @@ public class Team {
         return teamName;
     }
 
-    private void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public Drawable getTeamIcon() {
-        return teamIcon;
-    }
-
-    private void setTeamIcon(Drawable teamIcon) {
-        this.teamIcon = teamIcon;
-    }
-
     public int getGoalsTeam() {
         return goalsTeam;
+    }
+
+    public void setGoalsTeam(int goalsTeam) {
+        this.goalsTeam = goalsTeam;
+    }
+
+    public Drawable getTeamIcon(){
+        return TeamInfo.getTeamIcon(teamName);
     }
 
 }

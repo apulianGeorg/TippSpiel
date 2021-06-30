@@ -8,15 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tippspiel.backend.Spiel.Spiel;
+import com.example.tippspiel.backend.Spiel.Match;
 
 import java.util.ArrayList;
 
 import static com.example.tippspiel.R.*;
 
-public class RowAdapterSpiel extends ArrayAdapter<Spiel> {
+public class RowAdapterSpiel extends ArrayAdapter<Match> {
     private final Activity _context;
-    private final ArrayList<Spiel> spiele;
+    private final ArrayList<Match> matches;
 
     static class ViewHolder
     {
@@ -27,11 +27,11 @@ public class RowAdapterSpiel extends ArrayAdapter<Spiel> {
         ImageView team2Flag;
     }
 
-    public RowAdapterSpiel(Activity context, ArrayList<Spiel> spiele)
+    public RowAdapterSpiel(Activity context, ArrayList<Match> matches)
     {
-        super(context, layout.list_row_spiele, id.team1Name,spiele);
+        super(context, layout.list_row_spiele, id.team1Name,matches);
         this._context = context;
-        this.spiele = spiele;
+        this.matches = matches;
     }
 
     @Override
@@ -58,11 +58,11 @@ public class RowAdapterSpiel extends ArrayAdapter<Spiel> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.team1Flag.setImageDrawable(spiele.get(position).getTeam1().getTeamIcon());
-        holder.team1Name.setText(spiele.get(position).getTeam1().getTeamName());
-        holder.ergebnis.setText(spiele.get(position).getResult());
-        holder.team2Name.setText(spiele.get(position).getTeam2().getTeamName());
-        holder.team2Flag.setImageDrawable(spiele.get(position).getTeam2().getTeamIcon());
+        holder.team1Flag.setImageDrawable(matches.get(position).getTeam1().getTeamIcon());
+        holder.team1Name.setText(matches.get(position).getTeam1().getTeamName());
+        holder.ergebnis.setText(matches.get(position).getResult());
+        holder.team2Name.setText(matches.get(position).getTeam2().getTeamName());
+        holder.team2Flag.setImageDrawable(matches.get(position).getTeam2().getTeamIcon());
 
         return convertView;
     }

@@ -25,5 +25,6 @@
         <activity android:name=".frontend.activity.HighscoreActivity"/>
         <activity android:name=".frontend.activity.SpielActivity"/>
         <activity android:name=".frontend.activity.SpielTippActivity"/>
+        <activity android:name=".frontend.activity.TipperLigaSelectActivity"/>
     </application>
 </manifest>

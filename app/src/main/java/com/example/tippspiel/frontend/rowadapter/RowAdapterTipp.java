@@ -8,33 +8,32 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.tippspiel.backend.Spiel.Spiel;
+import com.example.tippspiel.backend.Spiel.Match;
 import com.example.tippspiel.backend.Tipp.TippManager;
 import java.util.ArrayList;
 import static com.example.tippspiel.R.id;
 import static com.example.tippspiel.R.layout;
 
-public class RowAdapterTipp extends ArrayAdapter<Spiel> {
+public class RowAdapterTipp extends ArrayAdapter<Match> {
 
     private final Activity _context;
-    private final ArrayList<Spiel> spiele;
+    private final ArrayList<Match> matches;
 
     static class ViewHolder
     {
         TextView team1Name;
         TextView team2Name;
-        EditText tippSpieler;
-        EditText ergebnisTipp;
+        EditText result;
         ImageView team1Flag;
         ImageView team2Flag;
         //TextWatcher textWatcher;
     }
 
-    public RowAdapterTipp(Activity context, ArrayList<Spiel> spiele)
+    public RowAdapterTipp(Activity context, ArrayList<Match> matchList)
     {
-        super(context, layout.list_row_tipps, id.team1Name,spiele);
+        super(context, layout.list_row_tipps, id.team1Name,matchList);
         this._context = context;
-        this.spiele = spiele;
+        this.matches = matchList;
     }
 
     @Override
@@ -51,7 +50,6 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
         }
         holder = (ViewHolder) convertView.getTag();
 
-        //setTextWatcher(position, holder);
         setFocusWatcher(position, holder);
 
         setHolderValues(position, holder);
@@ -64,8 +62,7 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
         holder = new ViewHolder();
         holder.team1Flag = convertView.findViewById(id.team1Flag);
         holder.team1Name = convertView.findViewById(id.team1Name);
-        holder.ergebnisTipp= convertView.findViewById(id.ergebnisTipp);
-        holder.tippSpieler= convertView.findViewById(id.tippSpieler);
+        holder.result = convertView.findViewById(id.ergebnisTipp);
         holder.team2Name = convertView.findViewById(id.team2Name);
         holder.team2Flag = convertView.findViewById(id.team2Flag);
         return holder;
@@ -73,7 +70,7 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
 
     private void setFocusWatcher(final int position, final ViewHolder holder){
         //FocusWatcher
-        holder.ergebnisTipp.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        holder.result.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
             @Override
             public void onFocusChange(View v, boolean hasFocus)
@@ -82,49 +79,20 @@ public class RowAdapterTipp extends ArrayAdapter<Spiel> {
                 {
                     EditText et= (EditText) v;
                     String s= et.getText().toString();
-                    int matchId = spiele.get(position).getMatchid();
-                    TippManager.neuerTipp(holder.tippSpieler, matchId, s);
+                    int matchId = matches.get(position).getMatchid();
+                    TippManager.neuerTipp(matchId, s);
                 }
             }
         });
     }
 
-    /*
-    private void setTextWatcher(final int position, final ViewHolder holder) {
-        // Remove any existing TextWatcher that will be keyed to the wrong ListItem
-        if (holder.textWatcher != null)
-            holder.ergebnisTipp.removeTextChangedListener(holder.textWatcher);
-
-        // Keep a reference to the TextWatcher so that we can remove it later
-        holder.textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int matchId = spiele.get(position).getMatchid();
-                TippManager.neuerTipp(holder.tippSpieler, matchId, s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        };
-
-        holder.ergebnisTipp.addTextChangedListener(holder.textWatcher);
-    }
-*/
-
     private void setHolderValues(int position, ViewHolder holder) {
-        int matchId = spiele.get(position).getMatchid();
-        holder.ergebnisTipp.setText(
-                TippManager.tipperListGet(
-                        holder.tippSpieler,
-                        matchId));
-        holder.team1Flag.setImageDrawable(spiele.get(position).getTeam1().getTeamIcon());
-        holder.team1Name.setText(spiele.get(position).getTeam1().getTeamName());
-        holder.team2Name.setText(spiele.get(position).getTeam2().getTeamName());
-        holder.team2Flag.setImageDrawable(spiele.get(position).getTeam2().getTeamIcon());
+        int matchId = matches.get(position).getMatchid();
+        holder.result.setText(
+                TippManager.tipperListGet(matchId));
+        holder.team1Flag.setImageDrawable(matches.get(position).getTeam1().getTeamIcon());
+        holder.team1Name.setText(matches.get(position).getTeam1().getTeamName());
+        holder.team2Name.setText(matches.get(position).getTeam2().getTeamName());
+        holder.team2Flag.setImageDrawable(matches.get(position).getTeam2().getTeamIcon());
     }
 }

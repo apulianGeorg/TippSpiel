@@ -59,7 +59,7 @@ public class RowAdapterHighscore extends ArrayAdapter<Tipper> {
 
         holder.tipperName.setText(tipperList.get(position).getName());
         holder.tipperRanking.setText(Integer.toString(position + 1));
-        holder.tipperPoints.setText(Integer.toString(tipperList.get(position).getPunkte()));
+        holder.tipperPoints.setText(Integer.toString(tipperList.get(position).getPoints()));
 
         return convertView;
     }

@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tippspiel.R;
 import com.example.tippspiel.backend.Tipp.TippManager;
-import com.example.tippspiel.backend.Tipp.TippMap;
+import com.example.tippspiel.backend.Map.FileToTipperListMap;
 import com.example.tippspiel.backend.Tipp.Tipper;
-import com.example.tippspiel.basics.MyReader;
+import com.example.tippspiel.basics.MyFileReader;
 import com.example.tippspiel.frontend.rowadapter.RowAdapterHighscore;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class HighscoreActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listview_activity_main);
 
         List<Tipper> tipperListe =
-                TippManager.getTipperList(TippMap.mapFileToTipperList(MyReader.readFile()));
+                TippManager.getTipperList(FileToTipperListMap.mapFileToTipperList(MyFileReader.readFile()));
 
         RowAdapterHighscore adapter = new RowAdapterHighscore(this, tipperListe);
         listView.setAdapter(adapter);

@@ -4,66 +4,67 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tipper implements Comparable<Tipper>{
+
     private String name;
     private int tipperId;
-    private int punkte;
-    private List<SpielTipp> spielTippList=new ArrayList<>();
+    private int points;
+    private List<MatchTipp> matchTippList =new ArrayList<>();
 
-    Tipper(String tippSpielerName, int tipperId, int matchId, String ergebnisTipp) {
-        setName(tippSpielerName);
+    Tipper(String tipperName, int tipperId, int matchId, String tipp) {
+        setName(tipperName);
         setTipperId(tipperId);
-        punkte=0;
-        spielTippList.add(new SpielTipp(matchId, ergebnisTipp));
+        points =0;
+        matchTippList.add(new MatchTipp(matchId, tipp));
     }
 
-    Tipper() {
+    public Tipper() {
         setName("");
         setTipperId(0);
-        punkte=0;
+        points =0;
     }
 
     public String getName() {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getPunkte() {
-        return punkte;
+    public int getPoints() {
+        return points;
     }
 
-    void setPunkte(int punkte) {
-        this.punkte = punkte;
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     int getTipperId() {
         return tipperId;
     }
 
-    void setTipperId(int tipperId) {
+    public void setTipperId(int tipperId) {
         this.tipperId = tipperId;
     }
 
-    List<SpielTipp> getSpielTippList() {
-        return spielTippList;
+    public List<MatchTipp> getMatchTippList() {
+        return matchTippList;
     }
 
-    void setSpielTippList(List<SpielTipp> spielTippList) {
-        this.spielTippList = spielTippList;
+    public void setMatchTippList(List<MatchTipp> matchTippList) {
+        this.matchTippList = matchTippList;
     }
 
-    void addSpielTipp(int matchId, String ergebnisTipp) {
-        spielTippList.add(new SpielTipp(matchId, ergebnisTipp));
+    void addMatchTipp(int matchId, String ergebnisTipp) {
+        matchTippList.add(new MatchTipp(matchId, ergebnisTipp));
     }
 
     @Override
     public int compareTo(Tipper o) {
-        if (this.punkte > o.punkte){
+        if (this.points > o.points){
             return -1;
         }
-        if (this.punkte < o.punkte){
+        if (this.points < o.points){
             return 1;
         }
         return this.name.compareTo(o.name);

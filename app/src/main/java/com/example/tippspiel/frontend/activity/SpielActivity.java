@@ -6,8 +6,8 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tippspiel.R;
-import com.example.tippspiel.backend.Spiel.Spiel;
-import com.example.tippspiel.backend.Spiel.SpielFactory;
+import com.example.tippspiel.backend.Spiel.Match;
+import com.example.tippspiel.backend.Spiel.MatchFactory;
 import com.example.tippspiel.frontend.rowadapter.RowAdapterSpiel;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class SpielActivity extends AppCompatActivity {
     private void bindAdapterToListView() {
         ListView listView = findViewById(R.id.listview_activity_main);
 
-        ArrayList<Spiel> spieleListe = SpielFactory.getSpiele();
+        ArrayList<Match> spieleListe = MatchFactory.getMatches();
 
         RowAdapterSpiel adapter = new RowAdapterSpiel(this, spieleListe);
         listView.setAdapter(adapter);
