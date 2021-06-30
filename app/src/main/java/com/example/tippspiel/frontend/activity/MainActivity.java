@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void spieleTippen() {
         Intent intent = new Intent(this, TipperLigaSelectActivity.class);
+        intent.putExtra("isTippActivity", true);
         startActivity(intent);
     }
 
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void zeigeSpieleAn() {
         Intent intent = new Intent(this, SpielActivity.class);
+        intent.putExtra("isTippActivity", false);
+        //Intent intent = new Intent(this, SpielActivity.class);
         startActivity(intent);
     }
     private void clearListe() {

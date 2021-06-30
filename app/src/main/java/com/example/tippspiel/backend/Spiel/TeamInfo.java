@@ -34,7 +34,8 @@ public class TeamInfo {
             connection.connect();
             InputStream input = connection.getInputStream();
             x = BitmapFactory.decodeStream(input);
-            return new BitmapDrawable(Resources.getSystem(), x);
+            Drawable teamIcon = new BitmapDrawable(Resources.getSystem(), x);
+            return teamIcon;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

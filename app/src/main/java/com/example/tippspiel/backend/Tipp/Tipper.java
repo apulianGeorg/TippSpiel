@@ -39,7 +39,7 @@ public class Tipper implements Comparable<Tipper>{
         this.points = points;
     }
 
-    int getTipperId() {
+    public int getTipperId() {
         return tipperId;
     }
 

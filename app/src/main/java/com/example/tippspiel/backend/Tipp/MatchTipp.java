@@ -18,7 +18,7 @@ public class MatchTipp {
         this(0,"");
     }
 
-    String getResult() {
+    public String getResult() {
         return result;
     }
 
@@ -70,7 +70,7 @@ public class MatchTipp {
         }
     }
 
-    int getMatchTippPoints() {
+    public int getMatchTippPoints() {
         return matchTippPoints;
     }
 

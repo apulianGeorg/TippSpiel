@@ -24,20 +24,12 @@ public class TipperToMatchMap {
     }
 
     private static Match matchTippToMatch(MatchTipp matchTipp, ArrayList<Match> matches) {
-        Match correspondingMatch = getCorrespondingMatch(matchTipp, matches);
+        Match correspondingMatch =
+                MatchHelper.getCorrespondingMatchViaMatchID(matchTipp, matches);
         @SuppressWarnings("ConstantConditions") Match match = new Match(correspondingMatch);
         match.getTeam1().setGoalsTeam(matchTipp.getGoalsTeam1());
         match.getTeam2().setGoalsTeam(matchTipp.getGoalsTeam2());
         return match;
     }
 
-    private static Match getCorrespondingMatch(MatchTipp matchTipp, ArrayList<Match> matches) {
-        for (Match match:matches) {
-            if (match.getMatchid()==matchTipp.getMatchId()){
-                return match;
-            }
-        }
-        //Zu jedem Tipp sollte auch ein Match vorhanden sein
-        return null;
-    }
 }

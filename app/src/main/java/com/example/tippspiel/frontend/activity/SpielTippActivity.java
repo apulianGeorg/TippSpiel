@@ -1,9 +1,9 @@
 package com.example.tippspiel.frontend.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,9 @@ import com.example.tippspiel.backend.Spiel.Match;
 import com.example.tippspiel.backend.Spiel.MatchFactory;
 import com.example.tippspiel.backend.Tipp.TippManager;
 import com.example.tippspiel.backend.Tipp.Tipper;
+import com.example.tippspiel.basics.JSonOutputBuilder;
 import com.example.tippspiel.basics.MyFileReader;
+import com.example.tippspiel.basics.MyJsonWriter;
 import com.example.tippspiel.frontend.rowadapter.RowAdapterTipp;
 
 import java.util.ArrayList;
@@ -28,47 +30,48 @@ public class SpielTippActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tipperName=getIntent().getStringExtra("tipperName");
+        final boolean isTippActivity=
+                getIntent().getBooleanExtra("isTippActivity", false);
         TippManager.setTipperName(tipperName);
         setContentView(R.layout.activity_tippanzeige);
-        getTipps();
 
+        handleSaveButton(isTippActivity);
 
-        Button button = findViewById(R.id.getButton);
-        //TODO: Das muss dann raus
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getTipps();
-            }
-        });
+        bindAdapterToListView(MatchFactory.getMatches(), isTippActivity);
+    }
 
-        button = findViewById(R.id.saveButton);
-        button.setOnClickListener(new View.OnClickListener() {
+    private void handleSaveButton(boolean isTippActivity) {
+        Button saveButton = findViewById(R.id.saveButton);
+        if (!isTippActivity) {
+            saveButton.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+        }
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveTipps();
                 finish();
             }
         });
-
-        bindAdapterToListView(MatchFactory.getMatches());
     }
 
     private void saveTipps() {
-        String outStr = TippManager.save();
-        Log.println(Log.INFO,"TippFileStr", outStr);
+        //Deltaabgleich
+        List<Tipper> deltaTipperList = TippManager.getDeltaTipperList();
+        String jsonStr= JSonOutputBuilder.getJsonString(deltaTipperList);
+        MyJsonWriter.write(jsonStr);
     }
 
     private void getTipps() {
         List<Tipper> tipperList=
                 TippManager.getTipperList(FileToTipperListMap.mapFileToTipperList(MyFileReader.readFile()));
         ArrayList <Match> matches = TipperToMatchMap.mapFileToTipperList(tipperList, tipperName);
-        bindAdapterToListView(matches);
+        bindAdapterToListView(matches, true);
     }
 
-    private void bindAdapterToListView(ArrayList<Match> matchList) {
+    private void bindAdapterToListView(ArrayList<Match> matchList, boolean isTippActivity) {
         ListView listView = findViewById(R.id.listview_activity_main);
         RowAdapterTipp adapter = new RowAdapterTipp(this, matchList);
+        adapter.setType(isTippActivity);
         listView.setAdapter(adapter);
     }
 }

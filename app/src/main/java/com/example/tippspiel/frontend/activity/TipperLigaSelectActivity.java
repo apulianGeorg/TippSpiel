@@ -17,22 +17,24 @@ public class TipperLigaSelectActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tipperselect);
+        final boolean isTippActivity=getIntent().getBooleanExtra("isTippActivity", false);
 
         Button button = findViewById(R.id.tipperButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spieleTippen();
+                spieleTippen(isTippActivity);
             }
         });
     }
 
-    private void spieleTippen() {
+    private void spieleTippen(boolean isTippActivity) {
 
         String tipperName=  ((EditText) findViewById(R.id.tipperAuswahlText)).getText().toString();
         if (!tipperName.isEmpty()) {
             Intent intent = new Intent(this, SpielTippActivity.class);
             intent.putExtra("tipperName", tipperName);
+            intent.putExtra("isTippActivity", isTippActivity);
             startActivity(intent);
         }
     }
