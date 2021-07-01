@@ -30,7 +30,7 @@ public class TipperLigaSelectActivity extends AppCompatActivity {
 
     private void spieleTippen(boolean isTippActivity) {
 
-        String tipperName=  ((EditText) findViewById(R.id.tipperAuswahlText)).getText().toString();
+        String tipperName=  ((EditText) findViewById(R.id.tipperAuswahlText)).getText().toString().trim();
         if (!tipperName.isEmpty()) {
             Intent intent = new Intent(this, SpielTippActivity.class);
             intent.putExtra("tipperName", tipperName);

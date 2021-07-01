@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void zeigeSpieleAn() {
-        Intent intent = new Intent(this, SpielActivity.class);
+        Intent intent = new Intent(this, SpielTippActivity.class);
         intent.putExtra("isTippActivity", false);
         //Intent intent = new Intent(this, SpielActivity.class);
         startActivity(intent);

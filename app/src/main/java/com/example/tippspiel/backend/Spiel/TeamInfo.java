@@ -26,6 +26,7 @@ public class TeamInfo {
         return teamInfoList.get(teamName);
     }
 
+    //TODO: Background Task
     private static Drawable createDrawableFromUrl(String url) {
         Bitmap x;
 
