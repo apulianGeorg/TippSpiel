@@ -73,7 +73,10 @@ public class TippManager {
                     Match correspondingMatch =
                             MatchHelper
                                     .getCorrespondingMatchViaMatchID(deltaMatchTipp, matchList);
-
+                    //Match evtl. schon zu alt. Konnte nicht ermittelt werden
+                    if (correspondingMatch ==null){
+                        return;
+                    }
                     //noinspection ConstantConditions
                     if (correspondingMatch.isMatchIsFinished()) {
                         int punkte = getMatchPoints(deltaMatchTipp, correspondingMatch);

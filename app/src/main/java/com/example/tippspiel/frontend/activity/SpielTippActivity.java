@@ -18,6 +18,8 @@ import com.example.tippspiel.backend.Tipp.Tipper;
 import com.example.tippspiel.basics.JSonOutputBuilder;
 import com.example.tippspiel.basics.MyFileReader;
 import com.example.tippspiel.basics.MyJsonWriter;
+import com.example.tippspiel.frontend.rowadapter.RowAdapterMatch;
+import com.example.tippspiel.frontend.rowadapter.RowAdapterMatchTipp;
 import com.example.tippspiel.frontend.rowadapter.RowAdapterTipp;
 
 import java.util.ArrayList;
@@ -78,8 +80,13 @@ public class SpielTippActivity extends AppCompatActivity {
 
     private void bindAdapterToListView(ArrayList<Match> matchList, boolean isTippActivity) {
         ListView listView = findViewById(R.id.listview_activity_main);
-        RowAdapterTipp adapter = new RowAdapterTipp(this, matchList);
-        adapter.setType(isTippActivity);
+
+        RowAdapterMatchTipp adapter;
+        if (isTippActivity) {
+            adapter = new RowAdapterTipp(this, matchList);
+        } else {
+            adapter = new RowAdapterMatch(this, matchList);
+        }
         listView.setAdapter(adapter);
     }
 }

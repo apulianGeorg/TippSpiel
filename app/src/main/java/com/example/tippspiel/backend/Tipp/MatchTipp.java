@@ -26,9 +26,9 @@ public class MatchTipp {
         this.result = result.trim()
                 .replace("-",":")
                 .replace(" ",":");
-        if (this.result.length()>0){
+        //if (this.result.length()>0){
             setTore();
-        }
+        //}
     }
 
 

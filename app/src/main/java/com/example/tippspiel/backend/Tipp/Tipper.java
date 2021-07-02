@@ -14,7 +14,7 @@ public class Tipper implements Comparable<Tipper>{
         setName(tipperName);
         setTipperId(tipperId);
         points =0;
-        matchTippList.add(new MatchTipp(matchId, tipp));
+        addMatchTipp(matchId, tipp);
     }
 
     public Tipper() {
