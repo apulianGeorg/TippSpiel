@@ -15,8 +15,7 @@ public class TipperToMatchMap {
         for (Tipper tipper: tipperList) {
             if (tipper.getName().equals(tipperName)){
                 for (MatchTipp matchTipp: tipper.getMatchTippList()){
-                    Match match = matchTippToMatch(matchTipp, matches);
-                    matchTipperList.add(match);
+                    matchTipperList.add(matchTippToMatch(matchTipp, matches));
                 }
             }
         }
@@ -26,7 +25,11 @@ public class TipperToMatchMap {
     private static Match matchTippToMatch(MatchTipp matchTipp, ArrayList<Match> matches) {
         Match correspondingMatch =
                 MatchHelper.getCorrespondingMatchViaMatchID(matchTipp, matches);
-        @SuppressWarnings("ConstantConditions") Match match = new Match(correspondingMatch);
+        if (correspondingMatch ==null){
+            //Evtl. werden die ehemals getippten Spiele nichtmehr angezeigt
+            return null;
+        }
+        Match match = new Match(correspondingMatch);
         match.getTeam1().setGoalsTeam(matchTipp.getGoalsTeam1());
         match.getTeam2().setGoalsTeam(matchTipp.getGoalsTeam2());
         return match;

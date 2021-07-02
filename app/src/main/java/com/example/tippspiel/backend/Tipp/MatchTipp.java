@@ -27,12 +27,7 @@ public class MatchTipp {
                 .replace("-",":")
                 .replace(" ",":");
         if (this.result.length()>0){
-            try{
-                setTore();
-            } catch (IndexOutOfBoundsException e) {
-                //TODO: Sauberer strukturieren und dann
-                //TODO die Exception weitergeben an die Oberfläche, wenn dort jmd. Blödsinn macht
-            }
+            setTore();
         }
     }
 

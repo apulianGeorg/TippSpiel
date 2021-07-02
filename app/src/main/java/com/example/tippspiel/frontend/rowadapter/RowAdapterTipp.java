@@ -2,6 +2,8 @@ package com.example.tippspiel.frontend.rowadapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +54,11 @@ public class RowAdapterTipp extends ArrayAdapter<Match> {
         {
             LayoutInflater inflater = _context.getLayoutInflater();
             convertView = inflater.inflate(layout.list_row_tipps,parent,false);
-
             holder = getViewHolder(convertView);
             convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        holder = (ViewHolder) convertView.getTag();
 
         if (isTippActivity) {
             setFocusWatcher(position, holder);
@@ -85,6 +87,7 @@ public class RowAdapterTipp extends ArrayAdapter<Match> {
 
 
     private void setFocusWatcher(final int position, final ViewHolder holder){
+        /*
         holder.result.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
             @Override
@@ -96,6 +99,36 @@ public class RowAdapterTipp extends ArrayAdapter<Match> {
                     String s= et.getText().toString();
                     int matchId = matches.get(position).getMatchid();
                     TippManager.addNeuerTippToTipperList(matchId, s);
+                }
+            }
+        });
+
+        */
+        holder.result.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                //EditText et= (EditText) v;
+                //String s= et.getText().toString();
+                int matchId = matches.get(position).getMatchid();
+                try {
+                    TippManager.addNeuerTippToTipperList(matchId, s.toString());
+                    holder.result.setBackgroundColor(Color.TRANSPARENT);
+                }
+                catch(Exception e){
+                    holder.result.setText("");
+                    holder.result.setBackgroundColor(Color.MAGENTA);
                 }
             }
         });

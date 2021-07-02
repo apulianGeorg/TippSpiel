@@ -29,15 +29,23 @@ public class SpielTippActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tipperName=getIntent().getStringExtra("tipperName");
+
         final boolean isTippActivity=
                 getIntent().getBooleanExtra("isTippActivity", false);
-        TippManager.setTipperName(tipperName);
-        setContentView(R.layout.activity_tippanzeige);
-
-        handleSaveButton(isTippActivity);
+        prepareView(isTippActivity);
 
         bindAdapterToListView(MatchFactory.getMatches(), isTippActivity);
+    }
+
+    private void prepareView(boolean isTippActivity) {
+        tipperName=getIntent().getStringExtra("tipperName");
+
+        TippManager.setTipperName(tipperName);
+        setContentView(R.layout.activity_tippanzeige);
+        handleSaveButton(isTippActivity);
+        if (isTippActivity){
+            getTipps();
+        }
     }
 
     private void handleSaveButton(boolean isTippActivity) {
