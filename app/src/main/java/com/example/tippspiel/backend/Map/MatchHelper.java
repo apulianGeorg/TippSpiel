@@ -8,8 +8,12 @@ import java.util.ArrayList;
 public class MatchHelper {
 
     public static Match getCorrespondingMatchViaMatchID(MatchTipp matchTipp, ArrayList<Match> matches) {
+        return getCorrespondingMatchViaMatchID(matchTipp.getMatchId(),matches);
+    }
+
+    public static Match getCorrespondingMatchViaMatchID(int matchId, ArrayList<Match> matches) {
         for (Match match:matches) {
-            if (match.getMatchid()==matchTipp.getMatchId()){
+            if (match.getMatchid()==matchId){
                 return match;
             }
         }

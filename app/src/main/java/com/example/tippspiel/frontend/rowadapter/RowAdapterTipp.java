@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import com.example.tippspiel.backend.Spiel.Match;
+import com.example.tippspiel.backend.Tipp.MatchTipp;
 import com.example.tippspiel.backend.Tipp.TippManager;
 
 import java.util.ArrayList;
@@ -46,11 +47,13 @@ public class RowAdapterTipp extends RowAdapterMatchTipp{
 
     @Override
     void formatResult(ViewHolder holder) {
-        holder.result.setEnabled(true);
+        //das muss ich pro Spiel entscheiden, ob editierbar
     }
 
     @Override
     void getResultText(int position, ViewHolder holder, int matchId) {
-        holder.result.setText(TippManager.getResultFRomTipperListViaMatchId(matchId));
+        MatchTipp tipp =TippManager.getTippViaMatchId(matchId);
+        holder.result.setText(tipp.getResult());
+        holder.result.setEnabled(!tipp.isEvaluated());
     }
 }

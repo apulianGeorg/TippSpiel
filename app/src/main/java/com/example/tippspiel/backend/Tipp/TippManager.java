@@ -3,16 +3,9 @@ package com.example.tippspiel.backend.Tipp;
 import com.example.tippspiel.InternalConstants;
 import com.example.tippspiel.backend.Map.FileToTipperListMap;
 import com.example.tippspiel.backend.Map.MatchHelper;
-import com.example.tippspiel.backend.Map.TipperToMatchMap;
 import com.example.tippspiel.backend.Spiel.Match;
 import com.example.tippspiel.backend.Spiel.MatchFactory;
-import com.example.tippspiel.basics.JSonOutputBuilder;
 import com.example.tippspiel.basics.MyFileReader;
-import com.example.tippspiel.basics.MyJsonWriter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,17 +35,17 @@ public class TippManager {
         tipperList.add(new Tipper(tipperName, 0, matchId, ergebnisTipp));
     }
 
-    public static String getResultFRomTipperListViaMatchId(int matchId) {
+    public static MatchTipp getTippViaMatchId(int matchId) {
         for (Tipper tipper : tipperList) {
             if (tipper.getName().equals(tipperName)) {
                 for (MatchTipp matchTipp : tipper.getMatchTippList()) {
                     if (matchTipp.getMatchId() == matchId) {
-                        return matchTipp.getResult();
+                        return matchTipp;
                     }
                 }
             }
         }
-        return "";
+        return new MatchTipp();
     }
 
     public static List<Tipper> getTipperList(List<Tipper> mapFileToTipperList) {
