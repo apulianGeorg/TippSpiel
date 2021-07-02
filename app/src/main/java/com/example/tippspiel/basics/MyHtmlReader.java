@@ -13,12 +13,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MyHtmlReader extends AsyncTask<Void, Void, ArrayList<Match>> {
+public class MyHtmlReader extends AsyncTask<Void, Void, String> {
 
     @Override
-    protected ArrayList<Match> doInBackground(Void... voids) {
-        String jsonStr = ReadHtmlPageAsString();
-        return JsonToMatchListMap.mapJsonToMatchList(jsonStr);
+    protected String doInBackground(Void... voids) {
+        return ReadHtmlPageAsString();
     }
 
     private String ReadHtmlPageAsString(){
@@ -42,6 +41,6 @@ public class MyHtmlReader extends AsyncTask<Void, Void, ArrayList<Match>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Match> matchList) {
+    protected void onPostExecute(String str) {
     }
 }
