@@ -27,14 +27,17 @@ public class TeamInfo {
     }
 
     //TODO: Background Task
-    private static Drawable createDrawableFromUrl(String url) {
+    private static Drawable createDrawableFromUrl(String urlStream) {
         Bitmap x;
 
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(urlStream).openConnection();
             connection.connect();
             InputStream input = connection.getInputStream();
             x = BitmapFactory.decodeStream(input);
+            if (x==null){
+                x = tryCreateDrawableWithHttps(urlStream);
+            }
             Drawable teamIcon = new BitmapDrawable(Resources.getSystem(), x);
             return teamIcon;
         } catch (IOException e) {
@@ -42,4 +45,17 @@ public class TeamInfo {
             return null;
         }
     }
+
+    private static Bitmap tryCreateDrawableWithHttps(String urlStream) throws IOException {
+        HttpURLConnection connection;
+        InputStream input;
+        Bitmap x;
+        String urlHttpsStream=urlStream.replace("http", "https");
+        connection = (HttpURLConnection) new URL(urlHttpsStream).openConnection();
+        connection.connect();
+        input = connection.getInputStream();
+        x = BitmapFactory.decodeStream(input);
+        return x;
+    }
+
 }

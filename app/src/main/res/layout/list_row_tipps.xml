@@ -10,6 +10,7 @@
         android:layout_width="@dimen/teamFlag_size"
         android:layout_height="@dimen/teamFlag_size"
         android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
         android:src="@drawable/abc_vector_test" />
 
     <!-- TeamName1-->
@@ -54,5 +55,6 @@
         android:layout_width="@dimen/teamFlag_size"
         android:layout_height="@dimen/teamFlag_size"
         android:src="@drawable/abc_vector_test"
+        android:layout_centerInParent="true"
         android:layout_alignParentRight="true"/>
 </RelativeLayout>

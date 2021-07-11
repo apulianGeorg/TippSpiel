@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        MatchFactory.getMatches();
+        //MatchFactory.getMatches();
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void zeigeSpieleAn() {
+        MatchFactory.getMatches();
         Intent intent = new Intent(this, SpielTippActivity.class);
         intent.putExtra("isTippActivity", false);
         //Intent intent = new Intent(this, SpielActivity.class);
